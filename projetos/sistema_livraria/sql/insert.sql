@@ -231,5 +231,3 @@ select c.id_pedido, p.id_usuario, SUM(c.infratotal) "Subtotal" from Carrinho c
 
 -- TODAS COMPRAS
 select * from Pedido where tipo = 'Compra';
-
--- 
