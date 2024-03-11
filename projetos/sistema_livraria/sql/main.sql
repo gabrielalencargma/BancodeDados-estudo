@@ -1,5 +1,5 @@
 -- CRIAÇÃO DAS TABELAS
-CREATE TABLE Usuario(
+CREATE TABLE Usuario (
 	id INT PRIMARY KEY NOT NULL,
 	nome VARCHAR(30) NOT NULL,
 	tipo VARCHAR(20) NOT NULL CHECK (tipo IN ('cliente', 'funcionário')),
@@ -10,7 +10,7 @@ CREATE TABLE Usuario(
 	CHECK ((tipo = 'cliente' AND endereco IS NOT NULL) OR (tipo = 'funcionário' AND endereco IS NULL))
 );
 
-CREATE TABLE Livro(
+CREATE TABLE Livro (
 	id INT PRIMARY KEY NOT NULL,
 	titulo VARCHAR(50) NOT NULL,
 	autor VARCHAR(60) NOT NULL,
@@ -26,12 +26,11 @@ CREATE TABLE Livro(
 );
 
 
-CREATE TABLE Pedido(
+CREATE TABLE Pedido (
 	id INT PRIMARY KEY NOT NULL,
 	id_usuario INT NOT NULL,
 	tipo VARCHAR(20) CHECK (tipo IN ('Compra', 'Empréstimo')),
-	status VARCHAR(30) CHECK (status IN ('Aprovado', 'Cancelado', 'Aguardando',
-		'Em reembolso', 'Reembolsado', 'Emprestado', 'Devolvido')),
+	status VARCHAR(30) CHECK (status IN ('Aprovado', 'Cancelado', 'Aguardando', 'Em reembolso', 'Reembolsado', 'Emprestado', 'Devolvido')),
 	motivo_reemb varchar(60),
 	data_ped DATE,
 	forma_pagamento VARCHAR(30) CHECK (forma_pagamento IN ('Cartão', 'Pix', 'Boleto', 'Permuta')),
@@ -43,7 +42,7 @@ CREATE TABLE Pedido(
 );
 
 
-CREATE TABLE Carrinho(
+CREATE TABLE Carrinho (
 	id_pedido INT NOT NULL,
 	id_livro INT NOT NULL,
 	quantidade INT NOT NULL,
