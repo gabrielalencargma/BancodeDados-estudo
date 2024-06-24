@@ -1,6 +1,6 @@
--- Os códigos podem ser rodados normalmente, em sequência, de cima para baixo. Estruturei eles numa ordem que permitisse uma fácil interação com a criação das tabelas e inserts ao mesmo tempo.
+---------- Tabelas para Formatura ----------
 
----------- Cadastro de Formatura ----------
+-- Criação da tabela para cursos --
 
 CREATE TABLE Curso (
     id INT PRIMARY KEY NOT NULL,
@@ -11,7 +11,7 @@ INSERT INTO Curso (id, nome) VALUES (1, 'Ciência da Computação');
 INSERT INTO Curso (id, nome) VALUES (2, 'Engenharia de Software');
 INSERT INTO Curso (id, nome) VALUES (3, 'Sistemas de Informação');
 
----
+-- Criação da tabela para faculdades --
 
 CREATE TABLE Faculdade (
     id INT PRIMARY KEY NOT NULL,
@@ -22,7 +22,7 @@ INSERT INTO Faculdade (id, nome) VALUES (1, 'UNINOVE');
 INSERT INTO Faculdade (id, nome) VALUES (2, 'UNIP');
 INSERT INTO Faculdade (id, nome) VALUES (3, 'SENAC');
 
----
+-- Criação da tabela para representantes --
 
 CREATE TABLE Representante (
     id INT PRIMARY KEY,
@@ -34,7 +34,7 @@ INSERT INTO Representante (id, nome, telefone) VALUES (1, 'Gabriel', '(11)11111-
 INSERT INTO Representante (id, nome, telefone) VALUES (2, 'Letícia', '(22)22222-2222');
 INSERT INTO Representante (id, nome, telefone) VALUES (3, 'Lucas', '(33)33333-3333');
 
----
+-- Criação da tabela para formas de pagamento --
 
 CREATE TABLE Forma_Pagamento (
     id INT PRIMARY KEY,
@@ -45,7 +45,7 @@ INSERT INTO Forma_Pagamento (id, tipo) VALUES (1, 'Pix');
 INSERT INTO Forma_Pagamento (id, tipo) VALUES (2, 'Cartão');
 INSERT INTO Forma_Pagamento (id, tipo) VALUES (3, 'Boleto');
 
----
+-- Criação da tabela para formaturas --
 
 CREATE TABLE Formatura (
     id INT PRIMARY KEY NOT NULL,
@@ -67,7 +67,9 @@ INSERT INTO Formatura (id, id_curso, id_faculdade, id_representante, id_forma_pa
 INSERT INTO Formatura (id, id_curso, id_faculdade, id_representante, id_forma_pagamento, valor_pagamento) 
     VALUES (3, 3, 3, 3, 1, 180.00);
 
----------- Cadastro de Evento ----------
+---------- Tabelas para Evento ----------
+
+-- Criação da tabela para eventos --
 
 CREATE TABLE Evento (
     id INT PRIMARY KEY NOT NULL,
@@ -80,7 +82,7 @@ INSERT INTO Evento (id, nome, descricao, duracao) VALUES (1, 'Colação de Grau'
 INSERT INTO Evento (id, nome, descricao, duracao) VALUES (2, 'Baile de Formatura', 'xxxxx', 20);
 INSERT INTO Evento (id, nome, descricao, duracao) VALUES (3, 'Viagem de Formatura', 'xxxxx', 120);
 
----
+-- Criação da tabela para status dos eventos --
 
 CREATE TABLE Status_Evento (
     id INT PRIMARY KEY NOT NULL,
@@ -91,7 +93,7 @@ INSERT INTO Status_Evento (id, status) VALUES (1, 'Confirmado');
 INSERT INTO Status_Evento (id, status) VALUES (2, 'Cancelado');
 INSERT INTO Status_Evento (id, status) VALUES (3, 'Adiado');
 
----
+-- Criação da tabela para endereços --
 
 CREATE TABLE Endereco (
     id INT PRIMARY KEY NOT NULL,
@@ -113,7 +115,7 @@ INSERT INTO Endereco (id, rua, bairro, cep, cidade, estado)
 INSERT INTO Endereco (id, rua, bairro, cep, cidade, estado) 
     VALUES (5, 'xxxxx', 'xxxxx', '55555-555', 'Rio de Janeiro', 'RJ');
 
----
+-- Criação da tabela intermediária para eventos e formaturas --
 
 CREATE TABLE Evento_Formatura (
     id_formatura INT NOT NULL,
@@ -141,7 +143,9 @@ INSERT INTO Evento_Formatura (id_formatura, id_evento, id_endereco, data, id_sta
 INSERT INTO Evento_Formatura (id_formatura, id_evento, id_endereco, data, id_status_evento, nova_data, evento_fechado) 
     VALUES (1, 3, 4, TO_DATE('22/12/2022', 'DD/MM/YYYY'), 3, TO_DATE('04/01/2023', 'DD/MM/YYYY'), 'N');
 
----------- Cadastro de Funcionário ----------
+---------- Tabelas para Funcionário ----------
+
+-- Criação da tabela para uniformes --
 
 CREATE TABLE Uniforme (
     id INT PRIMARY KEY NOT NULL,
@@ -150,7 +154,7 @@ CREATE TABLE Uniforme (
 
 INSERT INTO Uniforme (id, descricao) VALUES (1, 'Uniforme de Recepcionista');
 
----
+-- Criação da tabela para profissões --
 
 CREATE TABLE Profissao (
     id INT PRIMARY KEY NOT NULL,
@@ -170,7 +174,7 @@ INSERT INTO Profissao (id, nome, limite_hora_extra, valor_hora_extra, uniformiza
 INSERT INTO Profissao (id, nome, limite_hora_extra, valor_hora_extra, uniformizado, id_uniforme) 
     VALUES (3, 'Recepcionista', 40, 6.50, 'S', 1);
 
----
+-- Criação da tabela para status dos funcionários --
 
 CREATE TABLE Status_Funcionario (
     id INT PRIMARY KEY NOT NULL,
@@ -180,7 +184,7 @@ CREATE TABLE Status_Funcionario (
 INSERT INTO Status_Funcionario (id, status) VALUES (1, 'Contratado');
 INSERT INTO Status_Funcionario (id, status) VALUES (2, 'Demitido');
 
----
+-- Criação da tabela para funcionários --
 
 CREATE TABLE Funcionario (
     matricula INT PRIMARY KEY NOT NULL,
@@ -202,7 +206,7 @@ INSERT INTO Funcionario (matricula, nome, telefone, id_profissao, salario, id_st
 INSERT INTO Funcionario (matricula, nome, telefone, id_profissao, id_status_funcionario) 
     VALUES (3, 'Samuel', '(99)99999-9999', 1, 2);
 
----
+-- Criação da tabela intermediária para funcionarios e eventos --
 
 CREATE TABLE Funcionario_Evento (
     id_evento INT NOT NULL,
@@ -218,7 +222,9 @@ INSERT INTO Funcionario_Evento (id_evento, id_funcionario, horas) VALUES (1, 2, 
 INSERT INTO Funcionario_Evento (id_evento, id_funcionario, horas) VALUES (2, 1, 20);
 INSERT INTO Funcionario_Evento (id_evento, id_funcionario, horas) VALUES (3, 1, 120);
 
----------- Cadastro de Buffet ----------
+---------- Tabelas para Buffet ----------
+
+-- Criação da tabela para buffets --
 
 CREATE TABLE Buffet (
     id INT PRIMARY KEY NOT NULL,
@@ -234,6 +240,8 @@ INSERT INTO Buffet (id, nome, cnpj, id_endereco, inicio_parceria, termino_parcer
     VALUES (1, 'Doce Sabor', '11.111.111/1111-11', 3, TO_DATE('12/09/2023', 'DD/MM/YYYY'), TO_DATE('27/05/2024', 'DD/MM/YYYY'));
 INSERT INTO Buffet (id, nome, cnpj, id_endereco, inicio_parceria, termino_parceria) 
     VALUES (2, 'Frutos da Paixão', '22.222.222/2222-22', 2, TO_DATE('04/07/2022', 'DD/MM/YYYY'), TO_DATE('19/11/2025', 'DD/MM/YYYY'));
+
+-- Criação da tabela para cardápios --
 
 CREATE TABLE Cardapio (
     id INT PRIMARY KEY NOT NULL,
