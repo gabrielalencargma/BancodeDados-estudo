@@ -1,4 +1,4 @@
-# Projetos de Modelagem e Desenvolvimento de Banco de Dados
+# Sobre o Repositório
 
 Este repositório foi criado para guardar os projetos realizados na disciplina de <br>
 Modelagem e Desenvolvimento de Banco de Dados, na Universidade Nove de Julho (UNINOVE).
@@ -6,7 +6,6 @@ Modelagem e Desenvolvimento de Banco de Dados, na Universidade Nove de Julho (UN
 ## Estrutura do Repositório
 O repositório possui uma pasta reservada para os projetos, onde cada um também possui uma pasta dedicada para guardar seus arquivos. Cada projeto contém:
 
-- **Enunciado:** Descrição da necessidade do projeto, utilizado para modelar o banco de dados.
 - **Modelagem Conceitual:** Imagem representando a modelagem conceitual.
 - **Modelagem Lógica:** Imagem representando a modelagem lógica.
 - **Modelo Físico:** Código SQL para criação do banco de dados.
