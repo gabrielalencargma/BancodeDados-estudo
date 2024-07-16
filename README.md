@@ -1,6 +1,6 @@
 # Sobre o Repositório
 
-Este repositório foi criado para guardar os projetos realizados na disciplina de <br>
+Este repositório foi criado para guardar os meus projetos realizados na disciplina de <br>
 Modelagem e Desenvolvimento de Banco de Dados, na Universidade Nove de Julho (UNINOVE).
 
 ## Estrutura do Repositório
