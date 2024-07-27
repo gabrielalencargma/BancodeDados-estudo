@@ -9,7 +9,7 @@ O repositório possui uma pasta reservada para os projetos, onde cada um também
 - **Modelagem Lógica:** Imagem representando a modelagem lógica;
 - **Modelo Físico:** Código SQL para criação do banco de dados.
 
-## Ferramentas Utilizadas
+## Ambiente de Desenvolvimento
 
 Para desenvolver os projetos, utilizei as seguintes ferramentas:
 
