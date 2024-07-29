@@ -1,4 +1,10 @@
-# Enunciado do Atividade
+## Requerimentos
+
+- Criar a modelagem conceitual e lógica do banco de dados;
+- Desenvolver o banco de dados para o sistema;
+- Fazer a seleção das tabelas no SQL.
+
+## Enunciado
 
 Uma firma especializada em cerimônias de formatura (cerimonial) possui um nome, CNPJ e endereço. O cerimonial organiza várias formaturas. Para cada formatura, é importante registrar o nome do curso, faculdade, nome e telefone do chefe da turma, além da forma de pagamento e valor do pagamento. Fazem parte da formatura vários eventos. Um evento tem uma data, descrição do evento, local de realização e duração prevista. O sistema permite a marcação e o adiamento de eventos. Existem alguns eventos que são eventos fechados, para os quais o sistema registra o número de convidados.
 
