@@ -1,3 +1,9 @@
+## Requerimentos
+
+- Criar a modelagem conceitual e lógica do banco de dados;
+- Desenvolver o banco de dados para o sistema;
+- Fazer a seleção das tabelas no SQL.
+
 ## Enunciado da Atividade
 
 Você é o responsável pela modelagem do banco e a criação da base de dados da sua empresa, que fechou contrato com uma universidade para desenvolver a primeira versão do Sistema de Gerenciamento da Universidade – SiGerUn. Conversando a respeito das necessidades da universidade, o cliente passou o que é necessário para este gerenciamento, um banco de dados que administre os alunos, professores, disciplinas, notas e turmas da Universidade.
