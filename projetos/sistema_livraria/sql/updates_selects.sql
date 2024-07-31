@@ -1,17 +1,50 @@
--- INSERÇÕES DOS PEDIDOS EM CONJUNTO COM CARRINHO
+----- CADASTRO -----
+
+-- Cadastro de clientes
+INSERT INTO Usuario 
+	VALUES (1, 'Eric Castro', 'cliente', 'ericc14@gmail.com', '12345678', '(11) 95555-9999', 'Rua dos Guararapes, 745, São Paulo-SP');
+INSERT INTO Usuario 
+	VALUES (3, 'Gabriel', 'cliente', 'Gabriel2000@gmail.com', 'ABCD123', '(11) 95555-1001', 'Estrada de taipas, 1990, São Paulo-SP');
+INSERT INTO Usuario 
+	VALUES (4, 'Geovanna Vieira', 'cliente', 'Geovieira059@gmail.com', 'ABCD123', '(11) 95555-1002', 'Estrada de taipas, 1990, São Paulo-SP');
+INSERT INTO Usuario 
+	VALUES (5, 'Rosangela Santos', 'cliente', 'Rosangela.santos@gmail.com', '0246810', '(11) 95555-1030', 'Estrada de taipas, 1990, São Paulo-SP');
+
+-- Cadastro de Funcionários
+INSERT INTO Usuario (id, nome, tipo, email, senha, telefone)
+	VALUES (2, 'Eric Castro', 'funcionário', 'ericc14@gmail.com', '12345678', '(11) 95555-9999');
+
+-- Cadastro de livros
+INSERT INTO Livro VALUES (1, 'Memórias Póstumas', 'Machado De Assis', 'Antofágica', 200, 2, 'PT/BR', 2007, 'novo', 8, 2, 20, 2);
+INSERT INTO Livro VALUES (2, 'Mentirosos', 'Lockhart', 'Seguinte', 420, 1, 'PT/BR', 2016, 'novo', 7, 7, 50, 4);
+INSERT INTO Livro VALUES (3, 'Memórias Póstumas', 'Machado De Assis', 'Antofágica', 200, 2, 'PT/BR', 2007, 'usado', 8, 2, 20, 2);
+INSERT INTO Livro VALUES (4, 'Mentirosos', 'Lockhart', 'Seguinte', 420, 1, 'PT/BR', 2016, 'usado', 5, 0, 20, 2);
+INSERT INTO Livro VALUES (5, 'Luar vermelho', 'Gabriel', 'Companhia das letras', 226, 2, 'PT/BR', 2014, 'novo', 17, 3, 39, 5);
+INSERT INTO Livro VALUES (6, 'Harry Potter 1', 'JK.', 'Rocco', 226, 2, 'PT/BR', 2019, 'usado', 9, 5, 27, 4);
+INSERT INTO Livro VALUES (7, 'Harry Potter 2', 'JK.', 'Rocco', 423, 1, 'PT/BR', 2012, 'usado', 11, 2, 22, 3);
+SELECT * FROM Livro ORDER BY id ASC;
+
+----- CRIAÇÃO DO CARRINHO DE COMPRAS -----
+
 /* Após clicar em adicionar ao carrinho: 
 	1-será aberto um pedido
 	2-será feita, no carrinho, a escolha de como deseja adquirir este produto (compra ou empréstimo)
 	3-processos posteriores em função do método de aquisição selecionado
 */
 
+-- Carrinho do pedido 98
 insert into Pedido (id, id_usuario, status) values (98, 3, 'Aguardando');
 insert into Carrinho values (98, 7, 1, 22, 2);
 
+-- Carrinho do pedido 99
 insert into Pedido (id, id_usuario, status) values (99, 4, 'Aguardando');
 insert into Carrinho values (99, 6, 1, 27, 4);
+
+-- Atualizando tipo do pedido 99 para empréstimo
 update Pedido set tipo='Empréstimo' where id=99;
+
 -------------------------- PEDIDO DO TIPO COMPRA ------------------------------
+
 -- PARTE 1: CRIAÇÃO DE PEDIDO
 insert into Pedido (id, id_usuario, status) values (100, 1, 'Aguardando');
 insert into Carrinho values (100, 5, 1, 39, 5);
@@ -30,6 +63,7 @@ update Pedido set status='Aprovado', data_ped=TO_DATE('06/11/2023', 'DD/MM/YYYY'
 update Pedido set data_fim=TO_DATE('12/11/2023', 'DD/MM/YYYY') where id=100; 
 
 -------------------- PEDIDO DO TIPO COMPRA COM PERMUTA --------------------------
+
 -- PARTE 1: CRIAÇÃO DE PEDIDO
 insert into Pedido (id, id_usuario, status) values (101, 1, 'Aguardando'); 
 insert into Carrinho values (101, 5, 1, 39, 2);
@@ -48,6 +82,7 @@ update Pedido set
 update Pedido set data_fim=TO_DATE('22/11/2023', 'DD/MM/YYYY') where id=101;
 
 ---------------------- PEDIDO DO TIPO EMPRÉSTIMO ----------------------
+
 -- PARTE 1: CRIAÇÃO DE PEDIDO
 insert into Pedido (id, id_usuario, status) values (102, 3, 'Aguardando');
 insert into Carrinho values (102, 3, 1, 15, 2); 
@@ -69,6 +104,7 @@ update Pedido set
     status='Devolvido', data_fim=TO_DATE('16/12/2024', 'DD/MM/YYYY') where id = 102;
 
 ----------------------- REEMBOLSO --------------------------
+
 -- PARTE 1: CRIAÇÃO DE PEDIDO
 insert into Pedido (id, id_usuario, status) values (103, 5, 'Aguardando');
 insert into Carrinho values (103, 6, 1, 27, 4); 
