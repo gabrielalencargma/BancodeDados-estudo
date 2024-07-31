@@ -1,11 +1,10 @@
------ Tabelas para Formatura -----
+----- TABELAS PARA FORMATURA -----
 
 -- Criação da tabela para cursos
 CREATE TABLE Curso (
     id INT PRIMARY KEY NOT NULL,
     nome VARCHAR(30) NOT NULL
 );
-
 -- Inserção dos dados
 INSERT INTO Curso (id, nome) VALUES (1, 'Ciência da Computação');
 INSERT INTO Curso (id, nome) VALUES (2, 'Engenharia de Software');
@@ -16,7 +15,6 @@ CREATE TABLE Faculdade (
     id INT PRIMARY KEY NOT NULL,
     nome VARCHAR(50) NOT NULL
 );
-
 -- Inserção dos dados
 INSERT INTO Faculdade (id, nome) VALUES (1, 'UNINOVE');
 INSERT INTO Faculdade (id, nome) VALUES (2, 'UNIP');
@@ -28,7 +26,6 @@ CREATE TABLE Representante (
     nome VARCHAR(50) NOT NULL,
     telefone CHAR(14) UNIQUE NOT NULL
 );
-
 -- Inserção dos dados
 INSERT INTO Representante (id, nome, telefone) VALUES (1, 'Gabriel', '(11)11111-1111');
 INSERT INTO Representante (id, nome, telefone) VALUES (2, 'Letícia', '(22)22222-2222');
@@ -39,7 +36,6 @@ CREATE TABLE Forma_Pagamento (
     id INT PRIMARY KEY,
     tipo VARCHAR(20) NOT NULL
 );
-
 -- Inserção dos dados
 INSERT INTO Forma_Pagamento (id, tipo) VALUES (1, 'Pix');
 INSERT INTO Forma_Pagamento (id, tipo) VALUES (2, 'Cartão');
@@ -58,7 +54,6 @@ CREATE TABLE Formatura (
     FOREIGN KEY (id_representante) REFERENCES Representante(id),
     FOREIGN KEY (id_forma_pagamento) REFERENCES Forma_Pagamento(id)
 );
-
 -- Inserção dos dados
 INSERT INTO Formatura (id, id_curso, id_faculdade, id_representante, id_forma_pagamento, valor_pagamento) 
     VALUES (1, 2, 1, 2, 2, 250.00);
@@ -67,7 +62,7 @@ INSERT INTO Formatura (id, id_curso, id_faculdade, id_representante, id_forma_pa
 INSERT INTO Formatura (id, id_curso, id_faculdade, id_representante, id_forma_pagamento, valor_pagamento) 
     VALUES (3, 3, 3, 3, 1, 180.00);
 
------ Tabelas para Evento -----
+----- TABELAS PARA EVENTO -----
 
 -- Criação da tabela para eventos 
 CREATE TABLE Evento (
@@ -76,7 +71,6 @@ CREATE TABLE Evento (
     descricao VARCHAR(250) NOT NULL,
     duracao INT NOT NULL
 );
-
 -- Inserção dos dados
 INSERT INTO Evento (id, nome, descricao, duracao) VALUES (1, 'Colação de Grau', 'xxxxx', 40);
 INSERT INTO Evento (id, nome, descricao, duracao) VALUES (2, 'Baile de Formatura', 'xxxxx', 20);
@@ -87,7 +81,6 @@ CREATE TABLE Status_Evento (
     id INT PRIMARY KEY NOT NULL,
     status VARCHAR(10) NOT NULL
 );
-
 -- Inserção dos dados
 INSERT INTO Status_Evento (id, status) VALUES (1, 'Confirmado');
 INSERT INTO Status_Evento (id, status) VALUES (2, 'Cancelado');
@@ -102,7 +95,6 @@ CREATE TABLE Endereco (
     cidade VARCHAR(30) NOT NULL,
     estado CHAR(2) NOT NULL
 );
-
 -- Inserção dos dados
 INSERT INTO Endereco (id, rua, bairro, cep, cidade, estado) 
     VALUES (1, 'xxxxx', 'xxxxx', '11111-111', 'São Paulo', 'SP');
@@ -134,7 +126,6 @@ CREATE TABLE Evento_Formatura (
     	OR (id_status_evento = 3 AND nova_data IS NOT NULL)),
     CHECK ((evento_fechado = 'S' AND convidados IS NOT NULL) OR (evento_fechado = 'N' AND convidados IS NULL))
 );
-
 -- Inserção dos dados 
 INSERT INTO Evento_Formatura (id_formatura, id_evento, id_endereco, data, id_status_evento, evento_fechado, convidados) 
     VALUES (1, 1, 1, TO_DATE('16/08/2022', 'DD/MM/YYYY'), 1, 'S', 100);
@@ -143,14 +134,13 @@ INSERT INTO Evento_Formatura (id_formatura, id_evento, id_endereco, data, id_sta
 INSERT INTO Evento_Formatura (id_formatura, id_evento, id_endereco, data, id_status_evento, nova_data, evento_fechado) 
     VALUES (1, 3, 4, TO_DATE('22/12/2022', 'DD/MM/YYYY'), 3, TO_DATE('04/01/2023', 'DD/MM/YYYY'), 'N');
 
------ Tabelas para Funcionário -----
+----- TABELAS PARA FUNCIONÁRIO -----
 
 -- Criação da tabela para uniformes 
 CREATE TABLE Uniforme (
     id INT PRIMARY KEY NOT NULL,
     descricao VARCHAR(100) NOT NULL
 );
-
 -- Inserção dos dados
 INSERT INTO Uniforme (id, descricao) VALUES (1, 'Uniforme de Recepcionista');
 
@@ -165,7 +155,6 @@ CREATE TABLE Profissao (
     FOREIGN KEY (id_uniforme) REFERENCES Uniforme(id),
     CHECK ((uniformizado = 'S' AND id_uniforme IS NOT NULL) OR (uniformizado = 'N' AND id_uniforme IS NULL))
 );
-
 -- Inserção dos dados
 INSERT INTO Profissao (id, nome, limite_hora_extra, valor_hora_extra, uniformizado) 
     VALUES (1, 'Garçom', 40, 8.50, 'N');
@@ -179,7 +168,6 @@ CREATE TABLE Status_Funcionario (
     id INT PRIMARY KEY NOT NULL,
     status VARCHAR(10) NOT NULL
 );
-
 -- Inserção dos dados
 INSERT INTO Status_Funcionario (id, status) VALUES (1, 'Contratado');
 INSERT INTO Status_Funcionario (id, status) VALUES (2, 'Demitido');
@@ -197,7 +185,6 @@ CREATE TABLE Funcionario (
     CHECK ((id_status_funcionario = 1 AND salario IS NOT NULL) 
     	OR (id_status_funcionario = 2 AND salario IS NULL))
 );
-
 -- Inserção dos dados
 INSERT INTO Funcionario (matricula, nome, telefone, id_profissao, salario, id_status_funcionario) 
     VALUES (1, 'Júlio', '(77)77777-7777', 2, 1800, 1);
@@ -215,14 +202,13 @@ CREATE TABLE Funcionario_Evento (
     FOREIGN KEY (id_evento) REFERENCES Evento(id),
     FOREIGN KEY (id_funcionario) REFERENCES Funcionario(matricula)
 );
-
 -- Inserção dos dados
 INSERT INTO Funcionario_Evento (id_evento, id_funcionario, horas) VALUES (1, 1, 40);
 INSERT INTO Funcionario_Evento (id_evento, id_funcionario, horas) VALUES (1, 2, 40);
 INSERT INTO Funcionario_Evento (id_evento, id_funcionario, horas) VALUES (2, 1, 20);
 INSERT INTO Funcionario_Evento (id_evento, id_funcionario, horas) VALUES (3, 1, 120);
 
------ Tabelas para Buffet -----
+----- TABELAS PARA BUFFET -----
 
 -- Criação da tabela para buffets
 CREATE TABLE Buffet (
@@ -234,7 +220,6 @@ CREATE TABLE Buffet (
     termino_parceria DATE NOT NULL,
     FOREIGN KEY (id_endereco) REFERENCES Endereco(id)
 );
-
 -- Inserção dos dados
 INSERT INTO Buffet (id, nome, cnpj, id_endereco, inicio_parceria, termino_parceria) 
     VALUES (1, 'Doce Sabor', '11.111.111/1111-11', 3, TO_DATE('12/09/2023', 'DD/MM/YYYY'), TO_DATE('27/05/2024', 'DD/MM/YYYY'));
@@ -249,7 +234,6 @@ CREATE TABLE Cardapio (
     preco_por_pessoa FLOAT NOT NULL,
     FOREIGN KEY (id_buffet) REFERENCES Buffet(id) 
 );
-
 -- Inserção dos dados
 INSERT INTO Cardapio (id, id_buffet, descricao, preco_por_pessoa) VALUES (1, 1, 'xxxxx', 82.50);
 INSERT INTO Cardapio (id, id_buffet, descricao, preco_por_pessoa) VALUES (2, 1, 'xxxxx', 100.00);
@@ -258,52 +242,52 @@ INSERT INTO Cardapio (id, id_buffet, descricao, preco_por_pessoa) VALUES (4, 1, 
 INSERT INTO Cardapio (id, id_buffet, descricao, preco_por_pessoa) VALUES (5, 2, 'xxxxx', 47.99);
 INSERT INTO Cardapio (id, id_buffet, descricao, preco_por_pessoa) VALUES (6, 2, 'xxxxx', 56.50);
 
------ Seleção dos Dados -----
+----- SELEÇÃO DOS DADOS -----
 
--- Select da tabela "Curso" 
+-- Tabela "Curso" 
 SELECT * FROM Curso;
 
--- Select da tabela "Faculdade"
+-- Tabela "Faculdade"
 SELECT * FROM Faculdade;
 
--- Select da tabela "Representante" 
+-- Tabela "Representante" 
 SELECT * FROM Representante;
 
--- Select da tabela "Forma_Pagamento" 
+-- Tabela "Forma_Pagamento" 
 SELECT * FROM Forma_Pagamento;
 
--- Select da tabela "Formatura" 
+-- Tabela "Formatura" 
 SELECT * FROM Formatura;
 
--- Select da tabela "Evento" 
+-- Tabela "Evento" 
 SELECT * FROM Evento;
 
--- Select da tabela "Status_Evento" 
+-- Tabela "Status_Evento" 
 SELECT * FROM Status_Evento;
 
--- Select da tabela "Endereco" 
+-- Tabela "Endereco" 
 SELECT * FROM Endereco;
 
--- Select da tabela "Evento_Formatura" 
+-- Tabela "Evento_Formatura" 
 SELECT * FROM Evento_Formatura;
 
--- Select da tabela "Uniforme" 
+-- Tabela "Uniforme" 
 SELECT * FROM Uniforme;
 
--- Select da tabela "Profissao" 
+-- Tabela "Profissao" 
 SELECT * FROM Profissao;
 
--- Select da tabela "Status_Funcionario"
+-- Tabela "Status_Funcionario"
 SELECT * FROM Status_Funcionario;
 
--- Select da tabela "Funcionario" 
+-- Tabela "Funcionario" 
 SELECT * FROM Funcionario;
 
--- Select da tabela "Funcionario_Evento" 
+-- Tabela "Funcionario_Evento" 
 SELECT * FROM Funcionario_Evento;
 
--- Select da tabela "Buffet" 
+-- Tabela "Buffet" 
 SELECT * FROM Buffet;
 
--- Select da tabela "Cardapio" 
+-- Tabela "Cardapio" 
 SELECT * FROM Cardapio;
