@@ -1,4 +1,4 @@
------ Criação das Tabelas -----
+----- CRIAÇÃO DAS TABELAS -----
 
 -- Tabela para disciplinas
 CREATE TABLE Disciplina (
@@ -55,7 +55,7 @@ CREATE TABLE Boletim (
     FOREIGN KEY (id_prof_turma) REFERENCES Prof_Turma(id)
 );
 
------ Inserção dos Dados -----
+----- INSERÇÃO DOS DADOS -----
 
 -- Tabela "Disciplina"
 INSERT INTO Disciplina (id, area, curso, modulo) VALUES (1, 'Saúde', 'Medicina', 'Anatomia');
@@ -103,7 +103,7 @@ INSERT INTO Boletim (id, ra_aluno, id_prof_turma, nota) VALUES (6, 3, 1, 9.0);
 INSERT INTO Boletim (id, ra_aluno, id_prof_turma, nota) VALUES (7, 3, 2, 4.0);
 INSERT INTO Boletim (id, ra_aluno, id_prof_turma, nota) VALUES (8, 5, 8, 5.5);
 
------ Seleção das Tabelas -----
+----- SELEÇÃO DOS DADOS -----
 
 SELECT * FROM Disciplina
 SELECT * FROM Turma
