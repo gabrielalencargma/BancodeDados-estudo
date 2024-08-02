@@ -58,7 +58,7 @@ CREATE TABLE Ocorrencias(
 );
 
 -- Tabela intermediária para alunos e ocorrências
-CREATE TABLE Ocorrencias_alunos(
+CREATE TABLE Ocorrencias_Alunos(
     id_ocor INT NOT NULL,
     ra INT NOT NULL,
     UNIQUE (id_ocor, ra),
