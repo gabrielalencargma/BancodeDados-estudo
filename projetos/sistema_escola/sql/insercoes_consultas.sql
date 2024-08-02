@@ -8,9 +8,14 @@ insert into Usuarios values (2222204880, 'Aluno', 'abcd1234', 'Geovanna Vieira',
 insert into Usuarios values (2222204890, 'Aluno', 'abcd1234', 'Eric Castro', 'eric.castro@cjs.edu.br', '(11) 99999-1006');
 insert into Usuarios values (2222204891, 'Aluno', 'abcd1234', 'Rodrigo Mendes', 'rodrigo039@cjs.edu.br', '(11) 99999-1007');
 -- 1.2: Funcionário
+insert into Usuarios values (2020569887, 'Professora', 'abc1234', 'Jorgina', 'jorgina.santos@cjs.edu.br', '(11) 99999-1000');
+insert into Usuarios values (2222204885, 'Professora', 'abc1234', 'Marina', 'mari@cjs.edu.br', '(11) 99999-9999');
 insert into Usuarios values (2222204888, 'Professora', 'abc1234', 'Márcia', 'marcinha@cjs.edu.br', '(11) 99999-1001');
 insert into Usuarios values (2222204889, 'Professor', 'abc1234', 'Robson', 'rob@cjs.edu.br', '(11) 99999-1002');
 insert into Usuarios values (2222204886, 'Professora', 'abc1234', 'Linda', 'linda@cjs.edu.br', '(11) 99999-1003');
+insert into Usuarios values (2222204884, 'Professor', 'abc1234', 'Cleber', 'cleb@cjs.edu.br', '(11) 99999-1004');
+insert into Usuarios values (5555555555, 'Auxiliar Adm', 'xxxyyy', 'Chico Bento', 'chico1000@cjs.edu.br', '(11) 99999-1008');
+insert into Usuarios values (9999999999, 'Diretor', 'xxxyyy', 'Eduardo Costa', 'eduardo.costa@cjs.edu.br', '(11) 99999-1009');
 
 ----- ALTERAÇÃO DOS DADOS -----
 
@@ -184,6 +189,9 @@ select cr.dia_semana, t.ano, t.serie
 insert into Boletim values (1, 2222204880, 'Português', 2, 10, 9, 9.5, 3, 15, 'Aprovado', 40);
 insert into Boletim values (2, 2222204880, 'Matemática', 2, 8, 7, 7.5, 0, 15, 'Aprovado', 40);
 insert into Boletim values (3, 2222204880, 'Matemática', 1, 9, 8.5, 7.5, 0, 15, 'Aprovado', 38);
+insert into Boletim values (4, 2222204890, 'Geografia', 3, 6.5, 8.2, 7.35, 1, 10, 'Aprovado', 41);
+insert into Boletim values (5, 2222204890, 'História', 4, 7, 10, 8.5, 2, 10, 'Aprovado', 41);
+insert into Boletim values (6, 2222204890, 'Português', 4, 8, 10, 9, 4, 15,	'Aprovado', 41);
 -- 1.2: Boletim inicial
 insert into Boletim (id, ra, disciplina, bimestre, av1, limite_faltas, id_turma) values (7, 2222204890, 'Matemática', 4, 15, 41);
 
@@ -223,10 +231,14 @@ select b.disciplina, b.bimestre, b.av1, b.av2, b.media, b.faltas, b.situacao, b.
 
 -- 1: Criando uma ocorrência
 insert into Ocorrencias values (100, 'Quebrou nariz do colega', to_date('31/08/2023', 'DD/MM/YYYY'));
+insert into Ocorrencias values (101, 'Passou mal', to_date('22/10/2023', 'DD/MM/YYYY'));
+insert into Ocorrencias values (102, 'Riscou a mesa', to_date('12/09/2023', 'DD/MM/YYYY'));
 
 -- 2: Associando alunos à uma ocorrência
 insert into Ocorrencias_Alunos values (100, 2222204890);
 insert into Ocorrencias_Alunos values (100, 2222204891);
+insert into Ocorrencias_Alunos values (101, 2222204880);
+insert into Ocorrencias_Alunos values (102, 2222204890);
 
 ----- ALTERAÇÃO DOS DADOS -----
 
