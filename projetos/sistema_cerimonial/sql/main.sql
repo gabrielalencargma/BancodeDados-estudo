@@ -242,7 +242,7 @@ INSERT INTO Cardapio (id, id_buffet, descricao, preco_por_pessoa) VALUES (4, 1, 
 INSERT INTO Cardapio (id, id_buffet, descricao, preco_por_pessoa) VALUES (5, 2, 'xxxxx', 47.99);
 INSERT INTO Cardapio (id, id_buffet, descricao, preco_por_pessoa) VALUES (6, 2, 'xxxxx', 56.50);
 
------ SELEÇÃO DOS DADOS -----
+----- CONSULTA DOS DADOS -----
 
 -- Tabela "Curso" 
 SELECT * FROM Curso;
