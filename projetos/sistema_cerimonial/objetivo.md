@@ -1,8 +1,9 @@
 ## Requerimentos
 
 - Criar a modelagem conceitual e lógica do banco de dados;
-- Desenvolver o banco de dados para o sistema;
-- Consultar os dados das tabelas no SQL.
+- Desenvolver o banco de dados do sistema;
+- Inserir dados no SQL para teste;
+- Consultar os dados das tabelas.
 
 ## Enunciado
 
