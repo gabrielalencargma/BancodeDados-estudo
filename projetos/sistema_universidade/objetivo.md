@@ -2,7 +2,7 @@
 
 - Criar a modelagem conceitual e lógica do banco de dados;
 - Desenvolver o banco de dados para o sistema;
-- Fazer a seleção das tabelas no SQL.
+- Consultar os dados das tabelas no SQL.
 
 ## Enunciado da Atividade
 
