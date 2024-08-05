@@ -121,11 +121,14 @@ UPDATE Pedido SET forma_pagamento='Pix', valor_total = 79 WHERE id = 104;
 UPDATE Pedido SET forma_pagamento='Permuta' WHERE id = 101;
 
 -- 2: Ao confirmar um pedido:
-UPDATE Pedido SET status='Aprovado', data_ped=TO_DATE('06/11/2023', 'DD/MM/YYYY')
+UPDATE Pedido SET status='Aprovado', data_ped=TO_DATE('06/11/2023', 'DD/MM/YYYY'),
 	WHERE id = 100;
-UPDATE Pedido SET status='Aprovado', data_ped=TO_DATE('17/11/2023', 'DD/MM/YYYY')
+    valor_total = (SELECT SUM(infratotal) FROM Carrinho WHERE id_pedido = 100)
+UPDATE Pedido SET status='Aprovado', data_ped=TO_DATE('17/11/2023', 'DD/MM/YYYY'),
+    valor_total = (SELECT SUM(pontos_totais) FROM Carrinho WHERE id_pedido = 101)
 	WHERE id = 101;
-UPDATE Pedido SET status='Aprovado', data_ped=TO_DATE('15/10/2023', 'DD/MM/YYYY')
+UPDATE Pedido SET status='Aprovado', data_ped=TO_DATE('15/10/2023', 'DD/MM/YYYY'), 
+    valor_total = (SELECT SUM(infratotal) FROM Carrinho WHERE id_pedido = 104)
 	WHERE id = 104;
 
 -- 3: Ao receber os livros, será concluído o pedido.
