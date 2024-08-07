@@ -1,49 +1,55 @@
---------------- USUÁRIOS ---------------
+--------------- CADASTRO/LOGIN/EDIÇÃO DE USUÁRIOS ---------------
 
 ----- INSERÇÃO DOS DADOS -----
 
--- 1: Cadastrando um usuário
--- 1.1: Aluno
-INSERT INTO Usuarios VALUES (2222204880, 'Aluno', 'abcd1234', 'Geovanna Vieira', 'geovanna.lascouse@cjs.edu.br', '(11) 99999-9998');
-INSERT INTO Usuarios VALUES (2222204890, 'Aluno', 'abcd1234', 'Eric Castro', 'eric.castro@cjs.edu.br', '(11) 99999-1006');
-INSERT INTO Usuarios VALUES (2222204891, 'Aluno', 'abcd1234', 'Rodrigo Mendes', 'rodrigo039@cjs.edu.br', '(11) 99999-1007');
--- 1.2: Funcionário
-INSERT INTO Usuarios VALUES (2020569887, 'Professora', 'abc1234', 'Jorgina', 'jorgina.santos@cjs.edu.br', '(11) 99999-1000');
-INSERT INTO Usuarios VALUES (2222204885, 'Professora', 'abc1234', 'Marina', 'mari@cjs.edu.br', '(11) 99999-9999');
-INSERT INTO Usuarios VALUES (2222204888, 'Professora', 'abc1234', 'Márcia', 'marcinha@cjs.edu.br', '(11) 99999-1001');
-INSERT INTO Usuarios VALUES (2222204889, 'Professor', 'abc1234', 'Robson', 'rob@cjs.edu.br', '(11) 99999-1002');
-INSERT INTO Usuarios VALUES (2222204886, 'Professora', 'abc1234', 'Linda', 'linda@cjs.edu.br', '(11) 99999-1003');
-INSERT INTO Usuarios VALUES (2222204884, 'Professor', 'abc1234', 'Cleber', 'cleb@cjs.edu.br', '(11) 99999-1004');
-INSERT INTO Usuarios VALUES (5555555555, 'Auxiliar Adm', 'xxxyyy', 'Chico Bento', 'chico1000@cjs.edu.br', '(11) 99999-1008');
-INSERT INTO Usuarios VALUES (9999999999, 'Diretor', 'xxxyyy', 'Eduardo Costa', 'eduardo.costa@cjs.edu.br', '(11) 99999-1009');
+-- 1: Ao cadastrar um usuário:
+    -- 1.1: Aluno:
+    INSERT INTO Usuarios VALUES (2222204880, 'Aluno', 'abcd1234', 'Geovanna Vieira', 'geovanna.lascouse@cjs.edu.br', '(11) 99999-9998');
+    INSERT INTO Usuarios VALUES (2222204890, 'Aluno', 'abcd1234', 'Eric Castro', 'eric.castro@cjs.edu.br', '(11) 99999-1006');
+    INSERT INTO Usuarios VALUES (2222204891, 'Aluno', 'abcd1234', 'Rodrigo Mendes', 'rodrigo039@cjs.edu.br', '(11) 99999-1007');
+    -- 1.2: Funcionário:
+    INSERT INTO Usuarios VALUES (2020569887, 'Professora', 'abc1234', 'Jorgina', 'jorgina.santos@cjs.edu.br', '(11) 99999-1000');
+    INSERT INTO Usuarios VALUES (2222204885, 'Professora', 'abc1234', 'Marina', 'mari@cjs.edu.br', '(11) 99999-9999');
+    INSERT INTO Usuarios VALUES (2222204888, 'Professora', 'abc1234', 'Márcia', 'marcinha@cjs.edu.br', '(11) 99999-1001');
+    INSERT INTO Usuarios VALUES (2222204889, 'Professor', 'abc1234', 'Robson', 'rob@cjs.edu.br', '(11) 99999-1002');
+    INSERT INTO Usuarios VALUES (2222204886, 'Professora', 'abc1234', 'Linda', 'linda@cjs.edu.br', '(11) 99999-1003');
+    INSERT INTO Usuarios VALUES (2222204884, 'Professor', 'abc1234', 'Cleber', 'cleb@cjs.edu.br', '(11) 99999-1004');
+    INSERT INTO Usuarios VALUES (5555555555, 'Auxiliar Adm', 'xxxyyy', 'Chico Bento', 'chico1000@cjs.edu.br', '(11) 99999-1008');
+    INSERT INTO Usuarios VALUES (9999999999, 'Diretor', 'xxxyyy', 'Eduardo Costa', 'eduardo.costa@cjs.edu.br', '(11) 99999-1009');
 
 ----- ALTERAÇÃO DOS DADOS -----
 
--- 1: Atualizando as informações pessoais de um usuário
+-- 1: Ao alterar as informações pessoais de um usuário:
 UPDATE Usuarios SET telefone = '(11) 99999-5454' WHERE rs_ra = 2222204889;
 
--- 2: Alterando a senha de um usuário
+-- 2: Ao alterar a senha de um usuário:
 UPDATE Usuarios SET senha = 'novasenha' WHERE email = 'geovanna.lascouse@cjs.edu.br';
+UPDATE Usuarios SET senha = 'novasenha' WHERE telefone = '(11) 99999-9998';
 
--- 3: Excluindo um usuário
+-- 3: Ao remover um usuário:
 DELETE FROM Usuarios WHERE rs_ra = 2222204885;
 
 ----- CONSULTA DOS DADOS -----
 
--- 1: Exibindo os dados de todos os usuários
-SELECT * FROM Usuarios;
+-- 1: Ao tentar se logar, será consultado as informações do usuário.
+SELECT rs_ra, cargo FROM Usuarios WHERE rs_ra = 2222204880 AND senha = 'abcd1234';
 
--- 2: Exibindo os dados de todos os usuários de um determinado cargo
-SELECT * FROM Usuarios WHERE cargo = 'Aluno';
+-- 2: Ao solicitar a redefinição da senha, será consultado as informações de contato do usuário.
+SELECT email, telefone FROM Usuarios WHERE email = 'geovanna.lascouse@cjs.edu.br' OR telefone = '(11) 99999-9998';
 
--- 3: Exibindo os dados de um determinado usuário
-SELECT * FROM Usuarios WHERE rs_ra = 2222204889;
+-- 2: Exclusivo de funcionários (difere do professor):
+    -- 2.1: Ao acessar a área de usuários, será exibido todos os usuários cadastrados.
+    SELECT rs_ra, cargo, nome, email, telefone FROM Usuarios ORDER BY rs_ra;
+    -- 2.2: Ao filtrar o cargo dos usuários, será exibido os usuários do cargo escolhido.
+    SELECT rs_ra, cargo, nome, email, telefone FROM Usuarios WHERE cargo = 'Aluno';
+    -- 2.3: Ao selecionar um usuário para editá-lo, será exibido todas as suas informações.
+    SELECT * FROM Usuarios WHERE rs_ra = 2222204889;
 
---------------- TURMAS ---------------
+--------------- TURMAS E CRONOGRAMA ---------------
 
 ----- INSERÇÃO DOS DADOS -----
 
--- 1: Associando professores à uma turma, com sua disciplina, dia da semana e ordem da aula
+-- 1: Ao associar um professor à uma turma.
 INSERT INTO Cronograma VALUES (1, 2020569887, 'Português', 40, 'Segunda', 1);
 INSERT INTO Cronograma VALUES (2, 2020569887, 'Inglês', 40, 'Segunda', 2);
 INSERT INTO Cronograma VALUES (3, 2222204888, 'Matemática', 40, 'Segunda', 3);
@@ -83,8 +89,189 @@ INSERT INTO Cronograma VALUES (36, 2222204888, 'Matemática', 39, 'Segunda', 3);
 
 ----- CONSULTA DOS DADOS -----
 
--- 1: Exibindo todos os professores de uma determinada turma
--- 1.1: Consulta detalhada
+-- 1: Ao acessar a área de cronograma:
+    -- 1.1: O aluno verá o cronograma da sua turma e informações de faltas.
+    select cr.disciplina, cr.dia_semana from Cronograma cr
+        where cr.id_turma IN (select b.id_turma from Usuarios us
+        inner join Boletim b ON b.ra = us.rs_ra
+        inner join Turmas t ON t.id = b.id_turma
+        where us.rs_ra = 2222204890 and t.data_ano = 2023) order by dia_semana, ordem;
+    select b.disciplina, b.faltas, b.bimestre, t.data_ano, t.ano, t.serie
+            from Usuarios us inner join Boletim b ON b.ra = us.rs_ra
+            inner join Turmas t ON b.id_turma = t.id
+            where us.rs_ra = 2222204890;
+    -- 1.2: O professor verá o seu cronograma referente as turmas que ele ministra aula.
+    select cr.dia_semana, t.ano, t.serie
+        from Cronograma cr inner join Usuarios us ON cr.rs_prof = us.rs_ra
+        inner join Turmas t ON cr.id_turma = t.id
+        where us.rs_ra = 2020569887 and t.data_ano = 2023 ORDER BY t.turno, cr.dia_semana, cr.ordem;
+
+-- 2: Exclusivo de funcionário (difere do professor):
+    -- 2.1: Ao acessar a área de cronograma, será possível visualizar os cronogramas dos professores e alunos por meio de filtros.
+        -- 2.1.1: Cronogramas de professores:
+            -- 2.1.1.1: Ao tentar filtrar um professor, será consultado as suas informações.
+            select nome, rs_ra from Usuarios where cargo = 'Professor' or cargo = 'Professora';
+            -- 2.1.1.2: Ao tentar filtrar um ano, será consultado as informações dos cronogramas do professor.
+            select distinct data_ano from Turmas order by data_ano desc;
+            -- 2.1.1.3: Ao finalizar a filtragem, será exibido o cronograma do professor.
+            select t.data_ano, us.rs_ra, us.nome, cr.dia_semana, t.ano, t.serie
+                from Cronograma cr inner join Usuarios us ON cr.rs_prof = us.rs_ra
+                inner join Turmas t ON cr.id_turma = t.id
+                where (us.rs_ra = 2222204885 or us.nome = 'Marina') and (us.cargo = 'Professor' or us.cargo = 'Professora') and t.data_ano = 2023 
+                order by cr.dia_semana, cr.ordem;
+        -- 2.1.2: Cronogramas de alunos:
+            -- 2.1.2.1: Ao tentar filtrar um aluno, será consultado as suas informações.
+            select nome, rs_ra from Usuarios where cargo = 'Aluno';
+            -- 2.1.1.2: Ao tentar filtrar um ano, será consultado as informações dos cronogramas do aluno.
+            select distinct data_ano from Turmas order by data_ano desc;
+            -- 2.1.2.3: Ao aplicar os filtros, será exibido o cronograma do aluno.
+            select cr.disciplina, cr.dia_semana from Cronograma cr
+                where cr.id_turma IN (select b.id_turma from Usuarios us
+                inner join Boletim b ON b.ra = us.rs_ra
+                inner join Turmas t ON t.id = b.id_turma
+                where us.rs_ra = 2222204890 and t.data_ano = 2023) order by cr.dia_semana, cr.ordem;
+
+
+
+
+
+--------------- CRIAÇÃO/EDIÇÃO DE BOLETIM ---------------
+
+----- INSERÇÃO DOS DADOS -----
+
+-- 1: Ao criar o boletim do bimestre de um aluno:
+    -- 1.1: Boletim completo:
+    INSERT INTO Boletim VALUES (1, 2222204880, 'Português', 2, 10, 9, 9.5, 3, 15, 'Aprovado', 40);
+    INSERT INTO Boletim VALUES (2, 2222204880, 'Matemática', 2, 8, 7, 7.5, 0, 15, 'Aprovado', 40);
+    INSERT INTO Boletim VALUES (3, 2222204880, 'Matemática', 1, 9, 8.5, 7.5, 0, 15, 'Aprovado', 38);
+    INSERT INTO Boletim VALUES (4, 2222204890, 'Geografia', 3, 6.5, 8.2, 7.35, 1, 10, 'Aprovado', 41);
+    INSERT INTO Boletim VALUES (5, 2222204890, 'História', 4, 7, 10, 8.5, 2, 10, 'Aprovado', 41);
+    INSERT INTO Boletim VALUES (6, 2222204890, 'Português', 4, 8, 10, 9, 4, 15,	'Aprovado', 41);
+    -- 1.2: Boletim inicial:
+    INSERT INTO Boletim (id, ra, disciplina, bimestre, av1, limite_faltas, id_turma) VALUES (7, 2222204890, 'Matemática', 4, 15, 41);
+
+----- ALTERAÇÃO DOS DADOS -----
+
+-- Ao atualizar as notas de um aluno:
+UPDATE Boletim SET av1 = 8.7, av2 = 9.3 WHERE id_turma = 41 AND bimestre = 4 AND disciplina = 'Matemática' AND ra = 2222204890;
+
+-- Ao atualizar as faltas de um aluno:
+UPDATE Boletim SET faltas = 5 WHERE id_turma = 41 AND bimestre = 4 AND disciplina = 'Matemática' AND ra = 2222204890;
+
+----- CONSULTA DOS DADOS -----
+
+-- 1: Exclusivo de aluno:
+    -- 1.1: Ao acessar a área de boletim, será possível visualizar os boletins por meio de filtros.
+        -- 1.1.1: Ao tentar filtrar um ano, será exibido os anos que o aluno estudou.
+        select distinct t.data_ano from Turmas t inner join Boletim b ON t.id = b.id_turma
+            inner join Usuarios us ON us.rs_ra = b.ra
+            where us.rs_ra = 2222204890;
+        -- 1.1.2: Ao tentar filtrar um bimestre, será exibido os bimestres do ano filtrado.
+        select distinct b.bimestre from Turmas t inner join Boletim b ON t.id = b.id_turma
+            inner join Usuarios us ON us.rs_ra = b.ra
+            where us.rs_ra = 2222204890 AND t.data_ano = 2023;
+        -- 1.1.3: Ao aplicar os filtros, será consultado o boletim do aluno.
+        select b.disciplina, b.bimestre, b.av1, b.av2, b.media, b.faltas, b.situacao, b.limite_faltas, t.ano, t.serie, t.data_ano
+	        from Boletim b inner join Usuarios us ON us.rs_ra = b.ra
+            inner join Turmas t ON t.id = b.id_turma
+	        where (us.rs_ra = 2222204890 or us.nome = 'Eric Castro') and t.data_ano = 2023 and b.bimestre = 4
+
+-- 2: Exclusivo de professor e funcionário:
+    -- 2.1: Ao acessar a área de boletim, será possível visualizar os boletins por meio de filtros.
+        -- 2.1.1: Ao tentar filtrar uma turma, será exibido todas as turmas da escola.
+            select ano, serie from Turmas;
+        -- 2.1.2: Ao tentar filtrar um aluno, será exibido os alunos da turma filtrada.
+            select us.rs_ra, us.nome from Usuarios us
+                inner join Boletim b ON b.ra = us.rs_ra
+                inner join Turmas t ON t.id = b.id_turma
+                where t.id = 40;
+        -- 2.1.3: Ao tentar filtrar um bimestre, será exibido os bimestres do aluno na turma filtrada.
+            select b.bimestre from Usuarios us
+                inner join Boletim b ON b.ra = us.rs_ra
+                inner join Turmas t ON t.id = b.id_turma
+                where t.id = 40 AND (us.rs_ra = 2222204880 or us.nome = 'Geovanna Vieira');
+        -- 2.1.4: Ao aplicar os filtros, será consultado o boletim do aluno
+            select us.nome, us.rs_ra, b.bimestre, b.disciplina, b.av1, b.av2, b.media, b.faltas, b.situacao, b.limite_faltas, t.ano, t.serie, t.data_ano
+		        from Boletim b inner join Usuarios us ON us.rs_ra = b.ra
+    	        inner join Turmas t ON t.id = b.id_turma
+		        where (us.rs_ra = 2222204880 or us.nome = 'Geovanna Vieira') and t.data_ano = 2023 and t.ano = '7º' and t.serie = 'C' and b.bimestre = 2;
+
+-- 3: Exclusivo de professor:
+    -- 3.1: Ao selecionar um boletim de um aluno para editá-lo, será exibido suas informações de notas e faltas.
+    select b.bimestre, b.disciplina, b.av1, b.av2, b.faltas, b.situacao
+        from Boletim b inner join Usuarios us ON us.rs_ra = b.ra
+        inner join Turmas t ON t.id = b.id_turma
+        where (us.rs_ra = 2222204880 or us.nome = 'Geovanna Vieira') and t.turma = 40 and b.disciplina = 'Matemática';
+
+
+--------------- REGISTRO/EDIÇÃO DE OCORRÊNCIAS ---------------
+
+----- INSERÇÃO DOS DADOS -----
+
+-- 1: Ao registrar uma ocorrência:
+INSERT INTO Ocorrencias VALUES (100, 'Quebrou nariz do colega', to_date('31/08/2023', 'DD/MM/YYYY'));
+INSERT INTO Ocorrencias VALUES (101, 'Passou mal', to_date('22/10/2023', 'DD/MM/YYYY'));
+INSERT INTO Ocorrencias VALUES (102, 'Riscou a mesa', to_date('12/09/2023', 'DD/MM/YYYY'));
+
+-- 2: Ao associar um aluno a uma ocorrência:
+INSERT INTO Ocorrencias_Alunos VALUES (100, 2222204890);
+INSERT INTO Ocorrencias_Alunos VALUES (100, 2222204891);
+INSERT INTO Ocorrencias_Alunos VALUES (101, 2222204880);
+INSERT INTO Ocorrencias_Alunos VALUES (102, 2222204890);
+
+----- ALTERAÇÃO DOS DADOS -----
+
+-- 1: Ao alterar as informações de uma ocorrência:
+UPDATE Ocorrencias SET observacoes = 'Briga em sala', data_ocor = to_date('26/08/2023', 'DD/MM/YYYY') WHERE id = 100;
+
+-- 2: Ao desassociar um aluno de uma ocorrência:
+DELETE FROM Ocorrencias_Alunos WHERE id_ocor = 100 AND ra = 2222204891;
+
+-- 3: Ao remover uma ocorrência:
+DELETE FROM Ocorrencias WHERE id = 100;
+
+----- CONSULTA DOS DADOS -----
+
+-- 1: Ao acessar a área de ocorrências:
+    -- 1.1: O aluno verá todas as suas ocorrências.
+    select oc.observacoes, oc.data_ocor from Ocorrencias oc
+        inner join Ocorrencias_alunos oa ON oa.id_ocor = oc.id
+        where oa.ra = 2222204890;
+    -- 1.2: O professor/funcionário verá as ocorrências de todos os alunos.
+    select observacoes, data_ocor from Ocorrencias;
+
+-- 2: Ao procurar todas as ocorrências de um aluno:
+select oc.observacoes, oc.data_ocor from Ocorrencias oc
+    inner join Ocorrencias_alunos oa ON oa.id_ocor = oc.id
+    where oa.ra = 2222204890;
+
+-- 3: Ao clicar em "alunos envolvidos", será exibidos os alunos associados a ocorrência.
+select us.nome "Envolvidos", us.rs_ra "RA dos envolvidos" 
+    from Ocorrencias ocor inner join Ocorrencias_alunos ocorAlu ON ocor.id = ocorAlu.id_ocor
+    inner join Usuarios us ON ocorAlu.ra = us.rs_ra
+    where ocor.id = 100 order by ocor.id asc;
+
+--------------- CONTATO ---------------
+
+----- INSERÇÃO DOS DADOS -----
+
+-- 1: Ao solicitar contato com a escola:
+INSERT INTO Contatos VALUES (1, 'davicosta@gmail.com', '(11) 98888-8888', 'Matrícula', to_date('22/09/2023', 'DD/MM/YYYY'));
+INSERT INTO Contatos (id, email, mensagem, dia) VALUES (2, 'lucy22@gmail.com', 'Documentação', to_date('17/12/2023', 'DD/MM/YYYY'));
+INSERT INTO Contatos (id, telefone, mensagem, dia) VALUES (3, '(11) 99876-5432', 'Documentação', to_date('21/11/2023', 'DD/MM/YYYY'));
+
+--------------- CONSULTAS EXTRAS ---------------
+
+----- CONSULTA DOS DADOS -----
+
+-- 1: Exibindo a turma de um aluno:
+    select us.rs_ra, us.nome, t.ano. t.serie from Usuarios us
+        inner join Boletim b ON b.ra = us.rs_ra
+        inner join Turmas t ON t.id = b.id_turma
+        where us.rs_ra = 2222204890 and t.data_ano = 2023;
+
+-- 2: Exibindo todos os professores de uma determinada turma:
+-- 2.1: Consulta detalhada:
 SELECT distinct us.nome "Professor(a)", t.ano, t.serie, t.data_ano
     FROM Usuarios us INNER JOIN Cronograma cr ON us.rs_ra = cr.rs_prof
     INNER JOIN Turmas t ON cr.id_turma = t.id
@@ -93,7 +280,7 @@ SELECT distinct us.nome "Professor(a)", t.ano, t.serie, t.data_ano
     FROM Usuarios us INNER JOIN Cronograma cr ON us.rs_ra = cr.rs_prof
     INNER JOIN Turmas t ON cr.id_turma = t.id
     WHERE t.id = 41 ORDER BY us.nome ASC;
--- 1.2: Consulta simples
+-- 2.2: Consulta simples:
 SELECT distinct us.nome "Professor(a)", cr.id_turma "Turma"
 	FROM Usuarios us INNER JOIN Cronograma cr ON us.rs_ra = cr.rs_prof
     WHERE cr.id_turma = 40 ORDER BY us.nome ASC;
@@ -101,32 +288,32 @@ SELECT distinct us.nome "Professor(a)", cr.id_turma "Turma"
 	FROM Usuarios us INNER JOIN Cronograma cr ON us.rs_ra = cr.rs_prof
     WHERE cr.id_turma = 41 ORDER BY us.nome ASC;
 
--- 2: Exibindo todas as disciplinas de uma determinada turma
--- 2.1: Consulta detalhada
+-- 3: Exibindo todas as disciplinas de uma determinada turma:
+-- 3.1: Consulta detalhada:
 SELECT distinct cr.disciplina, t.ano, t.serie, t.data_ano
     FROM Cronograma cr INNER JOIN Turmas t ON cr.id_turma = t.id
     WHERE t.id = 40;
 SELECT distinct cr.disciplina, t.ano, t.serie, t.data_ano
     FROM Cronograma cr INNER JOIN Turmas t ON cr.id_turma = t.id
     WHERE t.id = 41;
--- 2.2: Consulta simples
+-- 3.2: Consulta simples:
 SELECT distinct disciplina FROM Cronograma WHERE id_turma = 40;
 SELECT distinct disciplina FROM Cronograma WHERE id_turma = 41;
 
--- 3: Exibindo as disciplinas para cada dia da semana de uma determinada turma
--- 3.1: Consulta detalhada
+-- 4: Exibindo as disciplinas para cada dia da semana de uma determinada turma:
+-- 4.1: Consulta detalhada:
 SELECT t.ano, t.serie, t.data_ano, cr.dia_semana, cr.disciplina
     FROM Cronograma cr INNER JOIN Turmas t ON cr.id_turma = t.id
     WHERE t.id = 40;
 SELECT t.ano, t.serie, t.data_ano, cr.dia_semana, cr.disciplina
     FROM Cronograma cr INNER JOIN Turmas t ON cr.id_turma = t.id
     WHERE t.id = 41;
--- 3.2: Consulta simples
+-- 4.2: Consulta simples
 SELECT dia_semana, disciplina FROM Cronograma WHERE id_turma = 40;
 SELECT dia_semana, disciplina FROM Cronograma WHERE id_turma = 41;
 
--- 4: Exibindo todas as turmas que um determinado professor ministra aula
--- 4.1: Consulta detalhada
+-- 5: Exibindo todas as turmas que um determinado professor ministra aula:
+-- 5.1: Consulta detalhada:
 SELECT distinct us.nome, us.rs_ra, t.ano, t.serie, t.data_ano
     FROM Cronograma cr INNER JOIN Usuarios us ON cr.rs_prof = us.rs_ra
     INNER JOIN Turmas t ON t.id = cr.id_turma
@@ -139,7 +326,7 @@ SELECT distinct us.nome, us.rs_ra, t.ano, t.serie, t.data_ano
     FROM Cronograma cr INNER JOIN Usuarios us ON cr.rs_prof = us.rs_ra
     INNER JOIN Turmas t ON t.id = cr.id_turma
     WHERE us.rs_ra = 2222204885;
--- 4.2: Consulta simples
+-- 5.2: Consulta simples:
 SELECT distinct us.nome, us.rs_ra, cr.id_turma, cr.dia_semana
     FROM Cronograma cr INNER JOIN Usuarios us ON cr.rs_prof = us.rs_ra
     WHERE us.rs_ra = 2020569887;
@@ -149,142 +336,3 @@ SELECT distinct us.nome, us.rs_ra, cr.id_turma, cr.dia_semana
 SELECT distinct us.nome, us.rs_ra, cr.id_turma, cr.dia_semana
     FROM Cronograma cr INNER JOIN Usuarios us ON cr.rs_prof = us.rs_ra
     WHERE us.rs_ra = 2222204885;
-
--- 5: Exibindo a turma de um determinado aluno
-SELECT us.rs_ra, us.nome, t.id FROM Usuarios us
-    INNER JOIN Boletim b ON b.ra = us.rs_ra
-    INNER JOIN Turmas t ON t.id = b.id_turma
-    WHERE us.rs_ra = 2222204890 AND t.data_ano = 2023;
-SELECT distinct us.rs_ra, us.nome FROM Usuarios us
-    INNER JOIN Boletim b ON b.ra = us.rs_ra
-    INNER JOIN Turmas t ON t.id = b.id_turma
-    WHERE (us.rs_ra = 2222204890 OR nome = 'Eric Castro') AND t.data_ano = 2023 AND t.id = 41;
-
--- 6: Exibindo o cronograma de um determinado aluno
-SELECT cr.disciplina, cr.dia_semana FROM Cronograma cr
-    WHERE cr.id_turma IN (SELECT b.id_turma FROM Usuarios us
-    INNER JOIN Boletim b ON b.ra = us.rs_ra
-    INNER JOIN Turmas t ON t.id = b.id_turma
-    WHERE us.rs_ra = 2222204890 AND t.data_ano = 2023) ORDER BY dia_semana, ordem;
-
--- 7: Exibindo o cronograma de um determinado professor
--- 7.1: Consulta detalhada
-SELECT t.data_ano, us.rs_ra, us.nome, cr.dia_semana, t.ano, t.serie
-    FROM Cronograma cr INNER JOIN Usuarios us ON cr.rs_prof = us.rs_ra
-    INNER JOIN Turmas t ON cr.id_turma = t.id
-    WHERE (us.rs_ra = 2222204885 OR us.nome = 'Marina') AND (us.cargo = 'Professor' OR us.cargo = 'Professora') AND t.data_ano = 2023 
-    ORDER BY cr.dia_semana, cr.ordem;
--- 7.1: Consulta simples
-SELECT cr.dia_semana, t.ano, t.serie
-    FROM Cronograma cr INNER JOIN Usuarios us ON cr.rs_prof = us.rs_ra
-    INNER JOIN Turmas t ON cr.id_turma = t.id
-    WHERE us.rs_ra = 2020569887 AND t.data_ano = 2023 ORDER BY t.turno, cr.dia_semana, cr.ordem;
-
---------------- BOLETIM ---------------
-
------ INSERÇÃO DOS DADOS -----
-
--- 1: Criando o boletim de um aluno
--- 1.1: Boletim completo
-INSERT INTO Boletim VALUES (1, 2222204880, 'Português', 2, 10, 9, 9.5, 3, 15, 'Aprovado', 40);
-INSERT INTO Boletim VALUES (2, 2222204880, 'Matemática', 2, 8, 7, 7.5, 0, 15, 'Aprovado', 40);
-INSERT INTO Boletim VALUES (3, 2222204880, 'Matemática', 1, 9, 8.5, 7.5, 0, 15, 'Aprovado', 38);
-INSERT INTO Boletim VALUES (4, 2222204890, 'Geografia', 3, 6.5, 8.2, 7.35, 1, 10, 'Aprovado', 41);
-INSERT INTO Boletim VALUES (5, 2222204890, 'História', 4, 7, 10, 8.5, 2, 10, 'Aprovado', 41);
-INSERT INTO Boletim VALUES (6, 2222204890, 'Português', 4, 8, 10, 9, 4, 15,	'Aprovado', 41);
--- 1.2: Boletim inicial
-INSERT INTO Boletim (id, ra, disciplina, bimestre, av1, limite_faltas, id_turma) VALUES (7, 2222204890, 'Matemática', 4, 15, 41);
-
------ ALTERAÇÃO DOS DADOS -----
-
--- Atualizando as notas de um aluno
-UPDATE Boletim SET av1 = 8.7, av2 = 9.3 WHERE id_turma = 41 AND bimestre = 4 AND disciplina = 'Matemática' AND ra = 2222204890;
-
--- Atualizando as faltas de um aluno
-UPDATE Boletim SET faltas = 5 WHERE id_turma = 41 AND bimestre = 4 AND disciplina = 'Matemática' AND ra = 2222204890;
-
--- Atualizando a média de um aluno
-UPDATE Boletim SET media = 9 WHERE id_turma = 41 AND bimestre = 4 AND disciplina = 'Matemática' AND ra = 2222204890;
-
--- Atualizando a situação de um aluno
-UPDATE Boletim SET situacao = 'Aprovado' WHERE id_turma = 41 AND bimestre = 4 AND disciplina = 'Matemática' and ra = 2222204890;
-
------ CONSULTA DOS DADOS -----
-
--- 1: Consultando o boletim de um determinado aluno
-SELECT us.nome, us.rs_ra, b.bimestre, b.disciplina, b.av1, b.av2, b.media, b.faltas, b.situacao, b.limite_faltas, t.ano, t.serie, t.data_ano
-    FROM Boletim b INNER JOIN Usuarios us ON us.rs_ra = b.ra
-    INNER JOIN Turmas t ON t.id = b.id_turma
-    WHERE (us.rs_ra = 2222204880 OR us.nome = 'Geovanna Vieira') AND t.data_ano = 2023 AND t.ano = '7º' AND t.serie = 'C' AND b.bimestre = 2;
-SELECT b.bimestre, b.disciplina, b.av1, b.av2, b.media, b.faltas, b.situacao, b.limite_faltas, t.ano, t.serie, t.data_ano, us.nome, us.rs_ra
-	FROM Boletim b INNER JOIN Usuarios us ON us.rs_ra = b.ra
-    INNER JOIN Turmas t ON t.id = b.id_turma
-	WHERE (us.rs_ra = 2222204880 OR us.nome = 'Geovanna Vieira') AND t.data_ano = 2022 AND t.ano = '4º' AND t.serie = 'A' AND b.bimestre = 1;
-SELECT b.disciplina, b.bimestre, b.av1, b.av2, b.media, b.faltas, b.situacao, b.limite_faltas, t.ano, t.serie, t.data_ano
-	FROM Boletim b INNER JOIN Usuarios us ON us.rs_ra = b.ra
-    INNER JOIN Turmas t ON t.id = b.id_turma
-	WHERE (us.rs_ra = 2222204890 OR us.nome = 'Eric Castro') AND t.data_ano = 2023 AND b.bimestre = 4
-
---------------- OCORRÊNCIAS ---------------
-
------ INSERÇÃO DOS DADOS -----
-
--- 1: Criando uma ocorrência
-INSERT INTO Ocorrencias VALUES (100, 'Quebrou nariz do colega', to_date('31/08/2023', 'DD/MM/YYYY'));
-INSERT INTO Ocorrencias VALUES (101, 'Passou mal', to_date('22/10/2023', 'DD/MM/YYYY'));
-INSERT INTO Ocorrencias VALUES (102, 'Riscou a mesa', to_date('12/09/2023', 'DD/MM/YYYY'));
-
--- 2: Associando alunos à uma ocorrência
-INSERT INTO Ocorrencias_Alunos VALUES (100, 2222204890);
-INSERT INTO Ocorrencias_Alunos VALUES (100, 2222204891);
-INSERT INTO Ocorrencias_Alunos VALUES (101, 2222204880);
-INSERT INTO Ocorrencias_Alunos VALUES (102, 2222204890);
-
------ ALTERAÇÃO DOS DADOS -----
-
--- 1: Atualizando uma ocorrência
-UPDATE Ocorrencias SET observacoes = 'Briga em sala', data_ocor = to_date('26/08/2023', 'DD/MM/YYYY') WHERE id = 100;
-
--- 2: Removendo um aluno de uma ocorrência
-DELETE FROM Ocorrencias_Alunos WHERE id_ocor = 100 AND ra = 2222204891;
-
--- 3: Excluindo uma ocorrência
-DELETE FROM Ocorrencias WHERE id = 100;
-
------ CONSULTA DOS DADOS -----
-
--- 1: Consultando todas as ocorrências
-SELECT * FROM Ocorrencias;
-
--- 2: Consultando todas as ocorrências de um determinado aluno.
-SELECT oc.observacoes, oc.data_ocor FROM Ocorrencias oc
-    INNER JOIN Ocorrencias_Alunos oa ON oa.id_ocor = oc.id
-    WHERE oa.ra = 2222204890;
-
--- 3: Consultando todos os alunos envolvidos em uma determinada ocorrência
--- 3.1: Consulta simples
-SELECT us.nome "Envolvidos", us.rs_ra "RA dos envolvidos" 
-    FROM Ocorrencias ocor INNER JOIN Ocorrencias_Alunos ocorAlu ON ocor.id = ocorAlu.id_ocor
-    INNER JOIN Usuarios us ON ocorAlu.ra = us.rs_ra
-    WHERE ocor.id = 100 ORDER BY ocor.id ASC;
--- 3.2: Consulta detalhada
-SELECT distinct ocor.id, us.rs_ra "RA dos envolvidos", us.nome "Envolvidos", t.ano, t.serie
-    FROM Ocorrencias ocor INNER JOIN Ocorrencias_Alunos oa ON ocor.id = oa.id_ocor
-    INNER JOIN Usuarios us ON oa.ra = us.rs_ra
-    INNER JOIN Boletim b ON b.ra = us.rs_ra
-    INNER JOIN Turmas t ON t.id = b.id_turma
-    WHERE ocor.id = 100 AND (us.rs_ra = 2222204890 AND t.data_ano = 2023) ORDER BY ocor.id ASC;	
-
---------------- CONTATO ---------------
-
------ INSERÇÃO DOS DADOS -----
-
--- 1: Realizando um contato
-INSERT INTO Contatos VALUES (1, 'davicosta@gmail.com', '(11) 98888-8888', 'Matrícula', to_date('22/09/2023', 'DD/MM/YYYY'));
-INSERT INTO Contatos (id, email, mensagem, dia) VALUES (2, 'lucy22@gmail.com', 'Documentação', to_date('17/12/2023', 'DD/MM/YYYY'));
-INSERT INTO Contatos (id, telefone, mensagem, dia) VALUES (3, '(11) 99876-5432', 'Documentação', to_date('21/11/2023', 'DD/MM/YYYY'));
-
------ CONSULTA DOS DADOS -----
-
--- 1: Consultando todos os contatos
-SELECT * FROM Contatos;

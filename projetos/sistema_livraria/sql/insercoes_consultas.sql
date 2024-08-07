@@ -41,10 +41,10 @@ UPDATE Livro SET pontos_troca = 2 WHERE id = 4;
 
 ----- CONSULTA DOS DADOS -----
 
--- 1: Ao acessar a área de livros cadastrados, será exibido as informações de cada um.
+-- 1: Ao acessar a área de livros, será exibido todos os livros cadastrados.
 SELECT id, titulo, qtd_disponivel, qtd_reservado FROM Livro;
 
--- 2: Ao escolher um livro para editá-lo, será exibido todas as suas informações cadastradas.
+-- 2: Ao selecionar um livro para editá-lo, será exibido todas as suas informações.
 SELECT * FROM Livro WHERE id = 2;
 
 --------------- AQUISIÇÃO DE LIVROS ---------------
