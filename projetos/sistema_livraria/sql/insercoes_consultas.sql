@@ -18,7 +18,7 @@
 
 ----- CONSULTA DOS DADOS -----
 
--- 1: Ao tentar se logar, será consultado as informações do usuário.
+-- 1: Ao tentar se logar, será consultado as informações de login do usuário.
 SELECT email, senha FROM Usuario WHERE email = 'Gabriel2000@gmail.com' AND senha = '12345678';
 
 --------------- EDIÇÃO/CADASTRO DE LIVROS ---------------
@@ -55,7 +55,7 @@ SELECT * FROM Livro WHERE id = 2;
 INSERT INTO Pedido (id, id_usuario, tipo, status) VALUES (105, 1, 'Compra', 'Aguardando'); 
 INSERT INTO Carrinho VALUES (105, 5, 1, 39, 2);
 
--- 2: Ao clicar em "adicionar ao carrinho" na vitrine de um livro, será criado um pedido em aberto (esperando finalizar na página do carrinho)
+-- 2: Ao clicar em "adicionar ao carrinho" na vitrine de um livro, será criado um pedido em aberto (esperando finalizar no carrinho de compras).
 INSERT INTO Pedido (id, id_usuario, status) VALUES (98, 3, 'Aguardando');
 INSERT INTO Carrinho VALUES (98, 7, 1, 22, 2);
 INSERT INTO Pedido (id, id_usuario, status) VALUES (99, 4, 'Aguardando');
@@ -75,10 +75,10 @@ INSERT INTO Carrinho VALUES (106, 3, 1, 15, 2);
 
 ----- CONSULTA DOS DADOS -----
 
--- 1: Ao acessar a área de livros à venda, será exibido os livros disponíveis.
+-- 1: Ao acessar a área de livros à venda, será exibido todos os livros disponíveis.
 SELECT titulo, autor, idioma, condicao, valor_unitario, pontos_troca FROM Livro ORDER BY id ASC;
 
--- 2: Ao entrar na vitrine de um livro, será exibido suas informações.
+-- 2: Ao entrar na vitrine de um livro, será exibido todas as suas informações.
 SELECT titulo, autor, editora, paginas, volume, idioma, ano_publicacao, condicao, valor_unitario, pontos_troca FROM Livro WHERE id = 1;
 
 --------------- CARRINHO DE COMPRAS ---------------
@@ -103,7 +103,7 @@ UPDATE Pedido SET tipo='Empréstimo' WHERE id=99;
 -- 1: Ao acessar o carrinho de compras, será exibido:
     -- 1.1: Informações dos livros escolhidos:
     SELECT titulo, valor_unitario, pontos_troca FROM Livro WHERE id=3 OR id=4;
-    -- 1.2: Quantidade total de livros do pedido:
+    -- 1.2: Quantidade total de livros:
     SELECT id_pedido, SUM(quantidade) "Total de Livros" FROM Carrinho WHERE id_pedido = 102 GROUP BY id_pedido ORDER BY id_pedido ASC;
     -- 1.3: Subtotal do pedido:
     SELECT id_pedido, SUM(pontosTotais) "Subtotal troca", SUM(infratotal) "Subtotal preço" FROM Carrinho WHERE id_pedido = 102 
@@ -138,7 +138,7 @@ UPDATE Pedido SET data_fim=TO_DATE('23/10/2023', 'DD/MM/YYYY') WHERE id=104;
 
 ----- CONSULTA DOS DADOS -----
 
--- 1: Ao acessar a área de finalização de um pedido, será exibido suas informações.
+-- 1: Ao acessar a área de finalização de um pedido, será exibido as suas informações.
     -- 1.1: Pedidos com pagamento em valor monetário:
     SELECT us.nome, us.endereco, l.titulo, l.condicao, l.valor_unitario, c.quantidade, c.infratotal, p.forma_pagamento FROM Usuario us 
         INNER JOIN Pedido p ON us.id=p.id_usuario
@@ -164,7 +164,7 @@ UPDATE Pedido SET data_fim=TO_DATE('23/10/2023', 'DD/MM/YYYY') WHERE id=104;
 UPDATE Pedido SET 
     status='Aprovado', data_ped=TO_DATE('17/11/2023', 'DD/MM/YYYY') WHERE id = 102;
 
--- 2: Ao ser emprestado os livros:
+-- 2: Ao emprestar os livros de um pedido:
 UPDATE Pedido SET 
 	status='Emprestado', data_emp=TO_DATE('24/11/2023', 'DD/MM/YYYY'), data_fim=TO_DATE('02/01/2024', 'DD/MM/YYYY') WHERE id = 102;
 
@@ -174,7 +174,7 @@ UPDATE Pedido SET
 
 ----- CONSULTA DOS DADOS -----
 
--- 1: Ao acessar a área de finalização de um pedido, será exibido suas informações.
+-- 1: Ao acessar a área de finalização de um pedido, será exibido as suas informações.
 SELECT us.nome, us.endereco, l.titulo, l.condicao, c.quantidade FROM Usuario us 
     INNER JOIN Pedido p ON us.id=p.id_usuario
     INNER JOIN Carrinho c ON p.id=c.id_pedido
@@ -188,7 +188,7 @@ SELECT us.nome, us.endereco, l.titulo, l.condicao, c.quantidade FROM Usuario us
 -- 1: Ao solicitar o reembolso de um pedido:
 UPDATE Pedido SET status='Em reembolso', motivo_reemb='Produto quebrado' WHERE id=104;
 
--- 2: Ao ser reembolsado:
+-- 2: Ao reembolsar:
 UPDATE Pedido SET status='Reembolsado', data_reemb=TO_DATE('02/11/2023', 'DD/MM/YYYY') WHERE id=104;
 
 ---------- DETALHES DE PEDIDOS ----------
@@ -209,7 +209,7 @@ SELECT p.id "Pedido", p.data_ped, us.nome, p.tipo, p.valor_total, p.status
     INNER JOIN Usuario us ON us.id=p.id_usuario
     WHERE us.id=4 ORDER BY p.id ASC;
 
--- 3: Ao selecionar o pedido de um usuário, será exibido suas informações.
+-- 3: Ao selecionar um pedido de um usuário, será exibido as suas informações.
 SELECT p.id "Pedido", p.data_ped, p.tipo, p.status, p.valor_total, p.data_fim, us.nome, us.endereco, l.titulo, l.condicao, l.valor_unitario, c.quantidade 
     FROM Pedido p
     INNER JOIN Carrinho c ON p.id=c.id_pedido
