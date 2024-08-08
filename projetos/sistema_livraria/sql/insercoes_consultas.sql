@@ -3,18 +3,18 @@
 ----- INSERÇÃO DOS DADOS -----
 
 -- 1: Ao cadastrar um usuário:
--- 1.1: Cliente:
-INSERT INTO Usuario 
-	VALUES (1, 'Eric Castro', 'cliente', 'ericc14@gmail.com', '12345678', '(11) 95555-9999', 'Rua dos Guararapes, 745, São Paulo-SP');
-INSERT INTO Usuario 
-	VALUES (3, 'Gabriel', 'cliente', 'Gabriel2000@gmail.com', 'ABCD123', '(11) 95555-1001', 'Estrada de taipas, 1990, São Paulo-SP');
-INSERT INTO Usuario 
-	VALUES (4, 'Geovanna Vieira', 'cliente', 'Geovieira059@gmail.com', 'ABCD123', '(11) 95555-1002', 'Estrada de taipas, 1990, São Paulo-SP');
-INSERT INTO Usuario 
-	VALUES (5, 'Rosangela Santos', 'cliente', 'Rosangela.santos@gmail.com', '0246810', '(11) 95555-1030', 'Estrada de taipas, 1990, São Paulo-SP');
--- 1.2: Funcionário:
-INSERT INTO Usuario (id, nome, tipo, email, senha, telefone)
-    VALUES (2, 'Eric Castro', 'funcionário', 'ericc14@gmail.com', '12345678', '(11) 95555-9999');
+    -- 1.1: Cliente:
+    INSERT INTO Usuario 
+        VALUES (1, 'Eric Castro', 'cliente', 'ericc14@gmail.com', '12345678', '(11) 95555-9999', 'Rua dos Guararapes, 745, São Paulo-SP');
+    INSERT INTO Usuario 
+        VALUES (3, 'Gabriel', 'cliente', 'Gabriel2000@gmail.com', 'ABCD123', '(11) 95555-1001', 'Estrada de taipas, 1990, São Paulo-SP');
+    INSERT INTO Usuario 
+        VALUES (4, 'Geovanna Vieira', 'cliente', 'Geovieira059@gmail.com', 'ABCD123', '(11) 95555-1002', 'Estrada de taipas, 1990, São Paulo-SP');
+    INSERT INTO Usuario 
+        VALUES (5, 'Rosangela Santos', 'cliente', 'Rosangela.santos@gmail.com', '0246810', '(11) 95555-1030', 'Estrada de taipas, 1990, São Paulo-SP');
+    -- 1.2: Funcionário:
+    INSERT INTO Usuario (id, nome, tipo, email, senha, telefone)
+        VALUES (2, 'Eric Castro', 'funcionário', 'ericc14@gmail.com', '12345678', '(11) 95555-9999');
 
 ----- CONSULTA DOS DADOS -----
 
@@ -101,24 +101,24 @@ UPDATE Pedido SET tipo='Empréstimo' WHERE id=99;
 ----- CONSULTA DOS DADOS -----
 
 -- 1: Ao acessar o carrinho de compras, será exibido:
--- 1.1: Informações dos livros escolhidos:
-SELECT titulo, valor_unitario, pontos_troca FROM Livro WHERE id=3 OR id=4;
--- 1.2: Quantidade total de livros do pedido:
-SELECT id_pedido, SUM(quantidade) "Total de Livros" FROM Carrinho WHERE id_pedido = 102 GROUP BY id_pedido ORDER BY id_pedido ASC;
--- 1.3: Subtotal do pedido:
-SELECT id_pedido, SUM(pontosTotais) "Subtotal troca", SUM(infratotal) "Subtotal preço" FROM Carrinho WHERE id_pedido = 102 
-    GROUP BY id_pedido ORDER BY id_pedido ASC;
+    -- 1.1: Informações dos livros escolhidos:
+    SELECT titulo, valor_unitario, pontos_troca FROM Livro WHERE id=3 OR id=4;
+    -- 1.2: Quantidade total de livros do pedido:
+    SELECT id_pedido, SUM(quantidade) "Total de Livros" FROM Carrinho WHERE id_pedido = 102 GROUP BY id_pedido ORDER BY id_pedido ASC;
+    -- 1.3: Subtotal do pedido:
+    SELECT id_pedido, SUM(pontosTotais) "Subtotal troca", SUM(infratotal) "Subtotal preço" FROM Carrinho WHERE id_pedido = 102 
+        GROUP BY id_pedido ORDER BY id_pedido ASC;
 
 --------------- FINALIZAÇÃO DE PEDIDOS DO TIPO "COMPRA" ---------------
 
 ----- ALTERAÇÃO DOS DADOS -----
 
 -- 1: Ao selecionar uma forma de pagamento:
--- 1.1: Valor monetário:
-UPDATE Pedido SET forma_pagamento='Cartão', valor_total = 270 WHERE id = 100;
-UPDATE Pedido SET forma_pagamento='Pix', valor_total = 79 WHERE id = 104;
--- 1.2: Pontos de troca (permuta):
-UPDATE Pedido SET forma_pagamento='Permuta' WHERE id = 101;
+    -- 1.1: Valor monetário:
+    UPDATE Pedido SET forma_pagamento='Cartão', valor_total = 270 WHERE id = 100;
+    UPDATE Pedido SET forma_pagamento='Pix', valor_total = 79 WHERE id = 104;
+    -- 1.2: Pontos de troca (permuta):
+    UPDATE Pedido SET forma_pagamento='Permuta' WHERE id = 101;
 
 -- 2: Ao confirmar um pedido:
 UPDATE Pedido SET status='Aprovado', data_ped=TO_DATE('06/11/2023', 'DD/MM/YYYY'),
@@ -139,22 +139,22 @@ UPDATE Pedido SET data_fim=TO_DATE('23/10/2023', 'DD/MM/YYYY') WHERE id=104;
 ----- CONSULTA DOS DADOS -----
 
 -- 1: Ao acessar a área de finalização de um pedido, será exibido suas informações.
--- 1.1: Pedidos com pagamento em valor monetário:
-SELECT us.nome, us.endereco, l.titulo, l.condicao, l.valor_unitario, c.quantidade, c.infratotal, p.forma_pagamento FROM Usuario us 
-    INNER JOIN Pedido p ON us.id=p.id_usuario
-    INNER JOIN Carrinho c ON p.id=c.id_pedido
-    INNER JOIN Livro l ON c.id_livro=l.id
-    WHERE us.id = 4 AND p.id = 104;
-SELECT SUM(infratotal) "Total preço" FROM Carrinho WHERE id_pedido = 104 
-    GROUP BY id_pedido ORDER BY id_pedido ASC;
--- 1.1: Pedidos com pagamento em permuta:
-SELECT us.nome, us.endereco, l.titulo, l.condicao, l.pontos_troca, c.quantidade, c.pontos_totais, p.forma_pagamento FROM Usuario us 
-    INNER JOIN Pedido p ON us.id=p.id_usuario
-    INNER JOIN Carrinho c ON p.id=c.id_pedido
-    INNER JOIN Livro l ON c.id_livro=l.id
-    WHERE us.id = 1 AND p.id = 101;
-SELECT SUM(pontos_totais) "Total troca" FROM Carrinho WHERE id_pedido = 101 
-    GROUP BY id_pedido ORDER BY id_pedido ASC;
+    -- 1.1: Pedidos com pagamento em valor monetário:
+    SELECT us.nome, us.endereco, l.titulo, l.condicao, l.valor_unitario, c.quantidade, c.infratotal, p.forma_pagamento FROM Usuario us 
+        INNER JOIN Pedido p ON us.id=p.id_usuario
+        INNER JOIN Carrinho c ON p.id=c.id_pedido
+        INNER JOIN Livro l ON c.id_livro=l.id
+        WHERE us.id = 4 AND p.id = 104;
+    SELECT SUM(infratotal) "Total preço" FROM Carrinho WHERE id_pedido = 104 
+        GROUP BY id_pedido ORDER BY id_pedido ASC;
+    -- 1.1: Pedidos com pagamento em permuta:
+    SELECT us.nome, us.endereco, l.titulo, l.condicao, l.pontos_troca, c.quantidade, c.pontos_totais, p.forma_pagamento FROM Usuario us 
+        INNER JOIN Pedido p ON us.id=p.id_usuario
+        INNER JOIN Carrinho c ON p.id=c.id_pedido
+        INNER JOIN Livro l ON c.id_livro=l.id
+        WHERE us.id = 1 AND p.id = 101;
+    SELECT SUM(pontos_totais) "Total troca" FROM Carrinho WHERE id_pedido = 101 
+        GROUP BY id_pedido ORDER BY id_pedido ASC;
 
 --------------- FINALIZAÇÃO DE PEDIDOS DO TIPO "EMPRÉSTIMO" ---------------
 
