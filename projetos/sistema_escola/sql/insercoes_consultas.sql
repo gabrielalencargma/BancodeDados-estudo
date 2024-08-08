@@ -91,45 +91,45 @@ INSERT INTO Cronograma VALUES (36, 2222204888, 'Matemática', 39, 'Segunda', 3);
 
 -- 1: Ao acessar a área de cronograma:
     -- 1.1: O aluno verá o cronograma da sua turma e informações de faltas.
-    select cr.disciplina, cr.dia_semana from Cronograma cr
-        where cr.id_turma IN (select b.id_turma from Usuarios us
-        inner join Boletim b ON b.ra = us.rs_ra
-        inner join Turmas t ON t.id = b.id_turma
-        where us.rs_ra = 2222204890 and t.data_ano = 2023) order by dia_semana, ordem;
-    select b.disciplina, b.faltas, b.bimestre, t.data_ano, t.ano, t.serie
-            from Usuarios us inner join Boletim b ON b.ra = us.rs_ra
-            inner join Turmas t ON b.id_turma = t.id
-            where us.rs_ra = 2222204890;
+    SELECT cr.disciplina, cr.dia_semana FROM Cronograma cr
+        WHERE cr.id_turma IN (SELECT b.id_turma FROM Usuarios us
+        INNER JOIN Boletim b ON b.ra = us.rs_ra
+        INNER JOIN Turmas t ON t.id = b.id_turma
+        WHERE us.rs_ra = 2222204890 AND t.data_ano = 2023) ORDER BY dia_semana, ordem;
+    SELECT b.disciplina, b.faltas, b.bimestre, t.data_ano, t.ano, t.serie
+            FROM Usuarios us INNER JOIN Boletim b ON b.ra = us.rs_ra
+            INNER JOIN Turmas t ON b.id_turma = t.id
+            WHERE us.rs_ra = 2222204890;
     -- 1.2: O professor verá o seu cronograma referente as turmas que ele ministra aula.
-    select cr.dia_semana, t.ano, t.serie
-        from Cronograma cr inner join Usuarios us ON cr.rs_prof = us.rs_ra
-        inner join Turmas t ON cr.id_turma = t.id
-        where us.rs_ra = 2020569887 and t.data_ano = 2023 ORDER BY t.turno, cr.dia_semana, cr.ordem;
+    SELECT cr.dia_semana, t.ano, t.serie
+        FROM Cronograma cr INNER JOIN Usuarios us ON cr.rs_prof = us.rs_ra
+        INNER JOIN Turmas t ON cr.id_turma = t.id
+        WHERE us.rs_ra = 2020569887 AND t.data_ano = 2023 ORDER BY t.turno, cr.dia_semana, cr.ordem;
 
 -- 2: Exclusivo de funcionário (difere do professor):
     -- 2.1: Ao acessar a área de cronograma, será possível visualizar os cronogramas dos professores e alunos por meio de filtros.
         -- 2.1.1: Cronogramas de professores:
             -- 2.1.1.1: Ao tentar filtrar um professor, será consultado as suas informações.
-            select nome, rs_ra from Usuarios where cargo = 'Professor' or cargo = 'Professora';
+            SELECT nome, rs_ra FROM Usuarios WHERE cargo = 'Professor' OR cargo = 'Professora';
             -- 2.1.1.2: Ao tentar filtrar um ano, será consultado as informações dos cronogramas do professor.
-            select distinct data_ano from Turmas order by data_ano desc;
+            SELECT DISTINCT data_ano FROM Turmas ORDER BY data_ano DESC;
             -- 2.1.1.3: Ao finalizar a filtragem, será exibido o cronograma do professor.
-            select t.data_ano, us.rs_ra, us.nome, cr.dia_semana, t.ano, t.serie
-                from Cronograma cr inner join Usuarios us ON cr.rs_prof = us.rs_ra
-                inner join Turmas t ON cr.id_turma = t.id
-                where (us.rs_ra = 2222204885 or us.nome = 'Marina') and (us.cargo = 'Professor' or us.cargo = 'Professora') and t.data_ano = 2023 
-                order by cr.dia_semana, cr.ordem;
+            SELECT t.data_ano, us.rs_ra, us.nome, cr.dia_semana, t.ano, t.serie
+                FROM Cronograma cr INNER JOIN Usuarios us ON cr.rs_prof = us.rs_ra
+                INNER JOIN Turmas t ON cr.id_turma = t.id
+                WHERE (us.rs_ra = 2222204885 OR us.nome = 'Marina') AND (us.cargo = 'Professor' OR us.cargo = 'Professora') AND t.data_ano = 2023 
+                ORDER BY cr.dia_semana, cr.ordem;
         -- 2.1.2: Cronogramas de alunos:
             -- 2.1.2.1: Ao tentar filtrar um aluno, será consultado as suas informações.
-            select nome, rs_ra from Usuarios where cargo = 'Aluno';
+            SELECT nome, rs_ra FROM Usuarios WHERE cargo = 'Aluno';
             -- 2.1.1.2: Ao tentar filtrar um ano, será consultado as informações dos cronogramas do aluno.
-            select distinct data_ano from Turmas order by data_ano desc;
+            SELECT DISTINCT data_ano FROM Turmas ORDER BY data_ano DESC;
             -- 2.1.2.3: Ao aplicar os filtros, será exibido o cronograma do aluno.
-            select cr.disciplina, cr.dia_semana from Cronograma cr
-                where cr.id_turma IN (select b.id_turma from Usuarios us
-                inner join Boletim b ON b.ra = us.rs_ra
-                inner join Turmas t ON t.id = b.id_turma
-                where us.rs_ra = 2222204890 and t.data_ano = 2023) order by cr.dia_semana, cr.ordem;
+            SELECT cr.disciplina, cr.dia_semana FROM Cronograma cr
+                WHERE cr.id_turma IN (SELECT b.id_turma FROM Usuarios us
+                INNER JOIN Boletim b ON b.ra = us.rs_ra
+                INNER JOIN Turmas t ON t.id = b.id_turma
+                WHERE us.rs_ra = 2222204890 AND t.data_ano = 2023) ORDER BY cr.dia_semana, cr.ordem;
 
 
 
@@ -163,45 +163,45 @@ UPDATE Boletim SET faltas = 5 WHERE id_turma = 41 AND bimestre = 4 AND disciplin
 -- 1: Exclusivo de aluno:
     -- 1.1: Ao acessar a área de boletim, será possível visualizar os boletins por meio de filtros.
         -- 1.1.1: Ao tentar filtrar um ano, será exibido os anos que o aluno estudou.
-        select distinct t.data_ano from Turmas t inner join Boletim b ON t.id = b.id_turma
-            inner join Usuarios us ON us.rs_ra = b.ra
-            where us.rs_ra = 2222204890;
+        SELECT DISTINCT t.data_ano FROM Turmas t INNER JOIN Boletim b ON t.id = b.id_turma
+            INNER JOIN Usuarios us ON us.rs_ra = b.ra
+            WHERE us.rs_ra = 2222204890;
         -- 1.1.2: Ao tentar filtrar um bimestre, será exibido os bimestres do ano filtrado.
-        select distinct b.bimestre from Turmas t inner join Boletim b ON t.id = b.id_turma
-            inner join Usuarios us ON us.rs_ra = b.ra
-            where us.rs_ra = 2222204890 AND t.data_ano = 2023;
+        SELECT DISTINCT b.bimestre FROM Turmas t INNER JOIN Boletim b ON t.id = b.id_turma
+            INNER JOIN Usuarios us ON us.rs_ra = b.ra
+            WHERE us.rs_ra = 2222204890 AND t.data_ano = 2023;
         -- 1.1.3: Ao aplicar os filtros, será consultado o boletim do aluno.
-        select b.disciplina, b.bimestre, b.av1, b.av2, b.media, b.faltas, b.situacao, b.limite_faltas, t.ano, t.serie, t.data_ano
-	        from Boletim b inner join Usuarios us ON us.rs_ra = b.ra
-            inner join Turmas t ON t.id = b.id_turma
-	        where (us.rs_ra = 2222204890 or us.nome = 'Eric Castro') and t.data_ano = 2023 and b.bimestre = 4
+        SELECT b.disciplina, b.bimestre, b.av1, b.av2, b.media, b.faltas, b.situacao, b.limite_faltas, t.ano, t.serie, t.data_ano
+	        FROM Boletim b INNER JOIN Usuarios us ON us.rs_ra = b.ra
+            INNER JOIN Turmas t ON t.id = b.id_turma
+	        WHERE (us.rs_ra = 2222204890 OR us.nome = 'Eric Castro') AND t.data_ano = 2023 AND b.bimestre = 4
 
 -- 2: Exclusivo de professor e funcionário:
     -- 2.1: Ao acessar a área de boletim, será possível visualizar os boletins por meio de filtros.
         -- 2.1.1: Ao tentar filtrar uma turma, será exibido todas as turmas da escola.
-            select ano, serie from Turmas;
+            SELECT ano, serie FROM Turmas;
         -- 2.1.2: Ao tentar filtrar um aluno, será exibido os alunos da turma filtrada.
-            select us.rs_ra, us.nome from Usuarios us
-                inner join Boletim b ON b.ra = us.rs_ra
-                inner join Turmas t ON t.id = b.id_turma
-                where t.id = 40;
+            SELECT us.rs_ra, us.nome FROM Usuarios us
+                INNER JOIN Boletim b ON b.ra = us.rs_ra
+                INNER JOIN Turmas t ON t.id = b.id_turma
+                WHERE t.id = 40;
         -- 2.1.3: Ao tentar filtrar um bimestre, será exibido os bimestres do aluno na turma filtrada.
-            select b.bimestre from Usuarios us
-                inner join Boletim b ON b.ra = us.rs_ra
-                inner join Turmas t ON t.id = b.id_turma
-                where t.id = 40 AND (us.rs_ra = 2222204880 or us.nome = 'Geovanna Vieira');
+            SELECT b.bimestre FROM Usuarios us
+                INNER JOIN Boletim b ON b.ra = us.rs_ra
+                INNER JOIN Turmas t ON t.id = b.id_turma
+                WHERE t.id = 40 AND (us.rs_ra = 2222204880 OR us.nome = 'Geovanna Vieira');
         -- 2.1.4: Ao aplicar os filtros, será consultado o boletim do aluno
-            select us.nome, us.rs_ra, b.bimestre, b.disciplina, b.av1, b.av2, b.media, b.faltas, b.situacao, b.limite_faltas, t.ano, t.serie, t.data_ano
-		        from Boletim b inner join Usuarios us ON us.rs_ra = b.ra
-    	        inner join Turmas t ON t.id = b.id_turma
-		        where (us.rs_ra = 2222204880 or us.nome = 'Geovanna Vieira') and t.data_ano = 2023 and t.ano = '7º' and t.serie = 'C' and b.bimestre = 2;
+            SELECT us.nome, us.rs_ra, b.bimestre, b.disciplina, b.av1, b.av2, b.media, b.faltas, b.situacao, b.limite_faltas, t.ano, t.serie, t.data_ano
+		        FROM Boletim b INNER JOIN Usuarios us ON us.rs_ra = b.ra
+    	        INNER JOIN Turmas t ON t.id = b.id_turma
+		        WHERE (us.rs_ra = 2222204880 OR us.nome = 'Geovanna Vieira') AND t.data_ano = 2023 AND t.ano = '7º' AND t.serie = 'C' AND b.bimestre = 2;
 
 -- 3: Exclusivo de professor:
     -- 3.1: Ao selecionar um boletim de um aluno para editá-lo, será exibido suas informações de notas e faltas.
-    select b.bimestre, b.disciplina, b.av1, b.av2, b.faltas, b.situacao
-        from Boletim b inner join Usuarios us ON us.rs_ra = b.ra
-        inner join Turmas t ON t.id = b.id_turma
-        where (us.rs_ra = 2222204880 or us.nome = 'Geovanna Vieira') and t.turma = 40 and b.disciplina = 'Matemática';
+    SELECT b.bimestre, b.disciplina, b.av1, b.av2, b.faltas, b.situacao
+        FROM Boletim b INNER JOIN Usuarios us ON us.rs_ra = b.ra
+        INNER JOIN Turmas t ON t.id = b.id_turma
+        WHERE (us.rs_ra = 2222204880 OR us.nome = 'Geovanna Vieira') AND t.turma = 40 AND b.disciplina = 'Matemática';
 
 
 --------------- REGISTRO/EDIÇÃO DE OCORRÊNCIAS ---------------
@@ -234,22 +234,22 @@ DELETE FROM Ocorrencias WHERE id = 100;
 
 -- 1: Ao acessar a área de ocorrências:
     -- 1.1: O aluno verá todas as suas ocorrências.
-    select oc.observacoes, oc.data_ocor from Ocorrencias oc
-        inner join Ocorrencias_alunos oa ON oa.id_ocor = oc.id
-        where oa.ra = 2222204890;
+    SELECT oc.observacoes, oc.data_ocor FROM Ocorrencias oc
+        INNER JOIN Ocorrencias_alunos oa ON oa.id_ocor = oc.id
+        WHERE oa.ra = 2222204890;
     -- 1.2: O professor/funcionário verá as ocorrências de todos os alunos.
-    select observacoes, data_ocor from Ocorrencias;
+    SELECT observacoes, data_ocor FROM Ocorrencias;
 
 -- 2: Ao procurar todas as ocorrências de um aluno:
-select oc.observacoes, oc.data_ocor from Ocorrencias oc
-    inner join Ocorrencias_alunos oa ON oa.id_ocor = oc.id
-    where oa.ra = 2222204890;
+SELECT oc.observacoes, oc.data_ocor FROM Ocorrencias oc
+    INNER JOIN Ocorrencias_alunos oa ON oa.id_ocor = oc.id
+    WHERE oa.ra = 2222204890;
 
 -- 3: Ao clicar em "alunos envolvidos", será exibidos os alunos associados a ocorrência.
-select us.nome "Envolvidos", us.rs_ra "RA dos envolvidos" 
-    from Ocorrencias ocor inner join Ocorrencias_alunos ocorAlu ON ocor.id = ocorAlu.id_ocor
-    inner join Usuarios us ON ocorAlu.ra = us.rs_ra
-    where ocor.id = 100 order by ocor.id asc;
+SELECT us.nome "Envolvidos", us.rs_ra "RA dos envolvidos" 
+    FROM Ocorrencias ocor INNER JOIN Ocorrencias_alunos ocorAlu ON ocor.id = ocorAlu.id_ocor
+    INNER JOIN Usuarios us ON ocorAlu.ra = us.rs_ra
+    WHERE ocor.id = 100 ORDER BY ocor.id ASC;
 
 --------------- CONTATO ---------------
 
@@ -265,40 +265,40 @@ INSERT INTO Contatos (id, telefone, mensagem, dia) VALUES (3, '(11) 99876-5432',
 ----- CONSULTA DOS DADOS -----
 
 -- 1: Exibindo a turma de um aluno:
-    select us.rs_ra, us.nome, t.ano. t.serie from Usuarios us
-        inner join Boletim b ON b.ra = us.rs_ra
-        inner join Turmas t ON t.id = b.id_turma
-        where us.rs_ra = 2222204890 and t.data_ano = 2023;
+    SELECT us.rs_ra, us.nome, t.ano. t.serie FROM Usuarios us
+        INNER JOIN Boletim b ON b.ra = us.rs_ra
+        INNER JOIN Turmas t ON t.id = b.id_turma
+        WHERE us.rs_ra = 2222204890 AND t.data_ano = 2023;
 
 -- 2: Exibindo todos os professores de uma determinada turma:
 -- 2.1: Consulta detalhada:
-SELECT distinct us.nome "Professor(a)", t.ano, t.serie, t.data_ano
+SELECT DISTINCT us.nome "Professor(a)", t.ano, t.serie, t.data_ano
     FROM Usuarios us INNER JOIN Cronograma cr ON us.rs_ra = cr.rs_prof
     INNER JOIN Turmas t ON cr.id_turma = t.id
     WHERE t.id = 40 ORDER BY us.nome ASC;
-SELECT distinct us.nome "Professor(a)", t.ano, t.serie, t.data_ano
+SELECT DISTINCT us.nome "Professor(a)", t.ano, t.serie, t.data_ano
     FROM Usuarios us INNER JOIN Cronograma cr ON us.rs_ra = cr.rs_prof
     INNER JOIN Turmas t ON cr.id_turma = t.id
     WHERE t.id = 41 ORDER BY us.nome ASC;
 -- 2.2: Consulta simples:
-SELECT distinct us.nome "Professor(a)", cr.id_turma "Turma"
+SELECT DISTINCT us.nome "Professor(a)", cr.id_turma "Turma"
 	FROM Usuarios us INNER JOIN Cronograma cr ON us.rs_ra = cr.rs_prof
     WHERE cr.id_turma = 40 ORDER BY us.nome ASC;
-SELECT distinct us.nome "Professor(a)", cr.id_turma "Turma"
+SELECT DISTINCT us.nome "Professor(a)", cr.id_turma "Turma"
 	FROM Usuarios us INNER JOIN Cronograma cr ON us.rs_ra = cr.rs_prof
     WHERE cr.id_turma = 41 ORDER BY us.nome ASC;
 
 -- 3: Exibindo todas as disciplinas de uma determinada turma:
 -- 3.1: Consulta detalhada:
-SELECT distinct cr.disciplina, t.ano, t.serie, t.data_ano
+SELECT DISTINCT cr.disciplina, t.ano, t.serie, t.data_ano
     FROM Cronograma cr INNER JOIN Turmas t ON cr.id_turma = t.id
     WHERE t.id = 40;
-SELECT distinct cr.disciplina, t.ano, t.serie, t.data_ano
+SELECT DISTINCT cr.disciplina, t.ano, t.serie, t.data_ano
     FROM Cronograma cr INNER JOIN Turmas t ON cr.id_turma = t.id
     WHERE t.id = 41;
 -- 3.2: Consulta simples:
-SELECT distinct disciplina FROM Cronograma WHERE id_turma = 40;
-SELECT distinct disciplina FROM Cronograma WHERE id_turma = 41;
+SELECT DISTINCT disciplina FROM Cronograma WHERE id_turma = 40;
+SELECT DISTINCT disciplina FROM Cronograma WHERE id_turma = 41;
 
 -- 4: Exibindo as disciplinas para cada dia da semana de uma determinada turma:
 -- 4.1: Consulta detalhada:
@@ -314,25 +314,25 @@ SELECT dia_semana, disciplina FROM Cronograma WHERE id_turma = 41;
 
 -- 5: Exibindo todas as turmas que um determinado professor ministra aula:
 -- 5.1: Consulta detalhada:
-SELECT distinct us.nome, us.rs_ra, t.ano, t.serie, t.data_ano
+SELECT DISTINCT us.nome, us.rs_ra, t.ano, t.serie, t.data_ano
     FROM Cronograma cr INNER JOIN Usuarios us ON cr.rs_prof = us.rs_ra
     INNER JOIN Turmas t ON t.id = cr.id_turma
     WHERE us.rs_ra = 2020569887;
-SELECT distinct us.nome, us.rs_ra, t.ano, t.serie, t.data_ano
+SELECT DISTINCT us.nome, us.rs_ra, t.ano, t.serie, t.data_ano
     FROM Cronograma cr INNER JOIN Usuarios us ON cr.rs_prof = us.rs_ra
     INNER JOIN Turmas t ON t.id = cr.id_turma
     WHERE us.rs_ra = 2222204888;
-SELECT distinct us.nome, us.rs_ra, t.ano, t.serie, t.data_ano
+SELECT DISTINCT us.nome, us.rs_ra, t.ano, t.serie, t.data_ano
     FROM Cronograma cr INNER JOIN Usuarios us ON cr.rs_prof = us.rs_ra
     INNER JOIN Turmas t ON t.id = cr.id_turma
     WHERE us.rs_ra = 2222204885;
 -- 5.2: Consulta simples:
-SELECT distinct us.nome, us.rs_ra, cr.id_turma, cr.dia_semana
+SELECT DISTINCT us.nome, us.rs_ra, cr.id_turma, cr.dia_semana
     FROM Cronograma cr INNER JOIN Usuarios us ON cr.rs_prof = us.rs_ra
     WHERE us.rs_ra = 2020569887;
-SELECT distinct us.nome, us.rs_ra, cr.id_turma, cr.dia_semana
+SELECT DISTINCT us.nome, us.rs_ra, cr.id_turma, cr.dia_semana
     FROM Cronograma cr INNER JOIN Usuarios us ON cr.rs_prof = us.rs_ra
     WHERE us.rs_ra = 2222204888;
-SELECT distinct us.nome, us.rs_ra, cr.id_turma, cr.dia_semana
+SELECT DISTINCT us.nome, us.rs_ra, cr.id_turma, cr.dia_semana
     FROM Cronograma cr INNER JOIN Usuarios us ON cr.rs_prof = us.rs_ra
     WHERE us.rs_ra = 2222204885;
