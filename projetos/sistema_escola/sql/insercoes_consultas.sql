@@ -49,6 +49,13 @@ SELECT email, telefone FROM Usuarios WHERE email = 'geovanna.lascouse@cjs.edu.br
 
 ----- INSERÇÃO DOS DADOS -----
 
+-- 1: Criando as turmas:
+INSERT INTO Turmas VALUES (38, '4º', 'A', 2022, 'Manhã');
+INSERT INTO Turmas VALUES (39, '5º', 'B', 2023, 'Tarde');
+INSERT INTO Turmas VALUES (40, '7º', 'C', 2023, 'Manhã');
+INSERT INTO Turmas VALUES (41, '8º', 'A', 2023, 'Tarde');
+INSERT INTO Turmas VALUES (42, '6º', 'D', 2023, 'Manhã');
+
 -- 1: Ao associar um professor à uma turma:
 INSERT INTO Cronograma VALUES (1, 2020569887, 'Português', 40, 'Segunda', 1);
 INSERT INTO Cronograma VALUES (2, 2020569887, 'Inglês', 40, 'Segunda', 2);
